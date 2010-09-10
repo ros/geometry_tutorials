@@ -1,0 +1,12 @@
+<launch>
+  <include file="$(find turtle_teleop)/launch/turtle_keyboard.launch" />
+  <node name="turtle1_tf_broadcaster" pkg="turtle_tf" type="turtle_tf_broadcaster.py" respawn="false" output="screen" >
+    <param name="turtle" type="string" value="turtle1" />
+  </node>
+  <node name="turtle2_tf_broadcaster" pkg="turtle_tf" type="turtle_tf_broadcaster.py" respawn="false" output="screen" >
+    <param name="turtle" type="string" value="turtle2" />
+  </node>
+  <node name="turtle_pointer" pkg="turtle_tf" type="turtle_tf_listener.py" respawn="false" output="screen" >
+  </node>
+
+</launch>
