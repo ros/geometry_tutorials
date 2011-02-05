@@ -5,9 +5,8 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/geometry_tutorials</url>
   <depend stack="geometry" /> <!-- tf -->
-  <depend stack="joystick_drivers_tutorials" /> <!-- turtle_teleop -->
   <depend stack="ros" />
-  <depend stack="ros_comm" /> <!-- rospy, roscpp -->
+  <depend stack="ros_comm" /> <!-- tf, turtlesim, rospy, roscpp -->
   <depend stack="ros_tutorials" /> <!-- turtlesim -->
 
 </stack>

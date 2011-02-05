@@ -10,7 +10,6 @@
   <url>http://ros.org/wiki/turtle_tf</url>
   <depend package="roscpp"/>
   <depend package="rospy"/>
-  <depend package="turtle_teleop"/>
   <depend package="turtlesim"/>
   <depend package="tf"/>
 
