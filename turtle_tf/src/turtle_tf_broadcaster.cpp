@@ -10,7 +10,7 @@ void poseCallback(const turtlesim::PoseConstPtr& msg){
   static tf::TransformBroadcaster br;
   tf::Transform transform;
   transform.setOrigin( tf::Vector3(msg->x, msg->y, 0.0) );
-  transform.setRotation( tf::Quaternion(msg->theta, 0, 0) );
+  transform.setRotation( tf::Quaternion(0, 0, msg->theta) );
   br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", turtle_name));
 }
 
