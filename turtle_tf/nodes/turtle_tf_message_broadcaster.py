@@ -36,24 +36,24 @@ import roslib
 roslib.load_manifest('turtle_tf')
 import rospy
 
-import tf
-import turtlesim.msg, turtlesim.srv
+import turtlesim.msg
+import geometry_msgs.msg
+import turtlesim.srv
 from geometry_msgs.msg import PointStamped, Point
 from std_msgs.msg import Header
+
 
 class PointPublisher:
     def handle_turtle_pose(self, msg, turtlename):
         self.pub.publish(PointStamped(Header(0, rospy.rostime.get_rostime(), "/world"), Point(msg.x, msg.y, 0)))
 
     def __init__(self):
-        self.turtlename = "turtle3" #rospy.get_param('~turtle')
+        self.turtlename = "turtle3"  # rospy.get_param('~turtle')
         self.sub = rospy.Subscriber('/%s/pose' % self.turtlename,
-                         turtlesim.msg.Pose,
-                         self.handle_turtle_pose,
-                         self.turtlename)
+                                    turtlesim.msg.Pose,
+                                    self.handle_turtle_pose,
+                                    self.turtlename)
         self.pub = rospy.Publisher('turtle_point_stamped', PointStamped)
-    
-
 
 if __name__ == '__main__':
     rospy.init_node('tf_turtle_stamped_msg_publisher')
@@ -63,8 +63,10 @@ if __name__ == '__main__':
 
     pp = PointPublisher()
 
-    pub = rospy.Publisher("turtle3/command_velocity", turtlesim.msg.Velocity)
+    pub = rospy.Publisher("turtle3/command_velocity", geometry_msgs.msg.Twist)
     while not rospy.is_shutdown():
-        pub.publish(turtlesim.msg.Velocity(1,1))
+        msg = geometry_msgs.msg.Twist()
+        msg.linear.x = 1
+        msg.angular.z = 1
+        pub.publish(msg)
         rospy.sleep(rospy.Duration(0.1))
-        

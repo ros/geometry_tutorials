@@ -37,7 +37,7 @@ import rospy
 
 import math
 import tf
-import turtlesim.msg
+import geometry_msgs.msg
 import turtlesim.srv
 
 if __name__ == '__main__':
@@ -49,17 +49,20 @@ if __name__ == '__main__':
     spawner = rospy.ServiceProxy('spawn', turtlesim.srv.Spawn)
     spawner(4, 2, 0, 'turtle2')
 
-    turtle_vel = rospy.Publisher('turtle2/command_velocity', turtlesim.msg.Velocity)
+    turtle_vel = rospy.Publisher('turtle2/command_velocity', geometry_msgs.msg.Twist)
 
     rate = rospy.Rate(10.0)
     while not rospy.is_shutdown():
         try:
-            (trans,rot) = listener.lookupTransform('/turtle2', '/turtle1', rospy.Time())
+            (trans, rot) = listener.lookupTransform('/turtle2', '/turtle1', rospy.Time())
         except (tf.LookupException, tf.ConnectivityException):
             continue
 
         angular = 4 * math.atan2(trans[1], trans[0])
         linear = 0.5 * math.sqrt(trans[0] ** 2 + trans[1] ** 2)
-        turtle_vel.publish(turtlesim.msg.Velocity(linear, angular))
+        msg = geometry_msgs.msg.Twist()
+        msg.linear.x = linear
+        msg.angular.z = angular
+        turtle_vel.publish(msg)
 
         rate.sleep()
