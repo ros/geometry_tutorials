@@ -2,8 +2,7 @@
   <name>geometry_tutorials</name>
   <version>0.1.2</version>
   <description>Metapackage of geometry tutorials ROS.</description>
-  <maintainer email="tfoote@willowgarage.com">Tully Foote</maintainer>
-  <maintainer email="isaito@willowgarage.com">Isaac Saito</maintainer>
+  <maintainer email="william@osrfoundation.org">William Woodall</maintainer>
 
   <license>BSD</license>
 
@@ -11,7 +10,10 @@
   <url type="repository">https://github.com/ros/geometry_tutorials</url>
   <url type="bugtracker">https://github.com/ros/geometry_tutorials/issues</url>
 
-  <author>Tully Foote</author>
+  <author email="tfoote@osrfoundation.org">Tully Foote</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
   <run_depend>turtle_tf</run_depend>
 
   <export>
