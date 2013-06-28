@@ -2,10 +2,13 @@ cmake_minimum_required(VERSION 2.8.3)
 project(turtle_tf)
 
 ## Find dependencies
-find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs tf)
+find_package(catkin REQUIRED COMPONENTS geometry_msgs roscpp rospy std_msgs tf turtlesim)
 
 ## Setup Include Directories
 include_directories(include ${catkin_INCLUDE_DIRS})
+
+## Tell catkin what to export
+catkin_package(CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs tf turtlesim)
 
 ## C++ examples
 add_executable(turtle_tf_broadcaster src/turtle_tf_broadcaster.cpp)
