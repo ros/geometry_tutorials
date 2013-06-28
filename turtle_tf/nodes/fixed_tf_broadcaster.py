@@ -36,10 +36,9 @@ roslib.load_manifest('turtle_tf')
 
 import rospy
 import tf
-import turtlesim.msg
 import tf.msg
 import geometry_msgs.msg
-import math
+
 
 class FixedTFBroadcaster:
 
