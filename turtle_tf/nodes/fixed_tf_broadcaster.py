@@ -43,7 +43,7 @@ import geometry_msgs.msg
 class FixedTFBroadcaster:
 
     def __init__(self):
-        self.pub_tf = rospy.Publisher("/tf", tf.msg.tfMessage)
+        self.pub_tf = rospy.Publisher("/tf", tf.msg.tfMessage, queue_size=1)
 
         while not rospy.is_shutdown():
             # Run this loop at about 10Hz
