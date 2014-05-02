@@ -63,7 +63,7 @@ if __name__ == '__main__':
 
     pp = PointPublisher()
 
-    pub = rospy.Publisher("turtle3/cmd_vel", geometry_msgs.msg.Twist)
+    pub = rospy.Publisher("turtle3/cmd_vel", geometry_msgs.msg.Twist, queue_size=1)
     while not rospy.is_shutdown():
         msg = geometry_msgs.msg.Twist()
         msg.linear.x = 1
