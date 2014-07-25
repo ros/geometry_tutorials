@@ -53,7 +53,7 @@ class PointPublisher:
                                     turtlesim.msg.Pose,
                                     self.handle_turtle_pose,
                                     self.turtlename)
-        self.pub = rospy.Publisher('turtle_point_stamped', PointStamped)
+        self.pub = rospy.Publisher('turtle_point_stamped', PointStamped, queue_size=1)
 
 if __name__ == '__main__':
     rospy.init_node('tf_turtle_stamped_msg_publisher')
