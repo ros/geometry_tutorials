@@ -15,6 +15,7 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <run_depend>turtle_tf</run_depend>
+	<run_depend>turtle_tf2</run_depend>
 
   <export>
     <metapackage/>
