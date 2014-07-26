@@ -11,7 +11,7 @@ std::string turtle_name;
 void poseCallback(const turtlesim::PoseConstPtr& msg){
   static tf2_ros::TransformBroadcaster br;
 	geometry_msgs::TransformStamped transformStamped;
-	
+  
 	transformStamped.header.stamp = ros::Time::now();
 	transformStamped.header.frame_id = "world";
 	transformStamped.child_frame_id = turtle_name;
@@ -19,7 +19,7 @@ void poseCallback(const turtlesim::PoseConstPtr& msg){
 	transformStamped.transform.translation.y = msg->y;
 	transformStamped.transform.translation.z = 0.0;
 	tf2::Quaternion q;
-  q.setRPY(msg->theta, 0, 0);
+  q.setRPY(0, 0, msg->theta);
 	transformStamped.transform.rotation.x = q.x();
 	transformStamped.transform.rotation.y = q.y();
 	transformStamped.transform.rotation.z = q.z();
@@ -30,11 +30,16 @@ void poseCallback(const turtlesim::PoseConstPtr& msg){
 
 int main(int argc, char** argv){
   ros::init(argc, argv, "my_tf2_broadcaster");
-  if (argc != 2){ROS_ERROR("need turtle name as argument"); return -1;};
-  turtle_name = argv[1];
-
-  ros::NodeHandle node;
-  ros::Subscriber sub = node.subscribe(turtle_name+"/pose", 10, &poseCallback);
+  ros::NodeHandle node("~");
+  if (node.hasParam("turtle")) {
+    node.param<std::string>("turtle", turtle_name, "");
+  }
+  else {
+    ROS_ERROR("need turtle name as argument");
+    return -1;
+  }
+  
+  ros::Subscriber sub = node.subscribe("/"+turtle_name+"/pose", 10, &poseCallback);
 
   ros::spin();
   return 0;
