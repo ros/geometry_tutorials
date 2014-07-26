@@ -36,14 +36,14 @@ roslib.load_manifest('turtle_tf2')
 
 import rospy
 import tf2_ros
-import tf2_ros.msg
+import tf2_msgs.msg
 import geometry_msgs.msg
 
 
 class FixedTFBroadcaster:
 
     def __init__(self):
-        self.pub_tf = rospy.Publisher("/tf", tf2_ros.msg.tfMessage, queue_size=1)
+        self.pub_tf = rospy.Publisher("/tf", tf2_msgs.msg.TFMessage, queue_size=1)
 
         while not rospy.is_shutdown():
             # Run this loop at about 10Hz
@@ -62,10 +62,11 @@ class FixedTFBroadcaster:
             t.transform.rotation.z = 0.0
             t.transform.rotation.w = 1.0
 
-            tfm = tf2_ros.msg.tfMessage([t])
+            tfm = tf2_msgs.msg.TFMessage([t])
             self.pub_tf.publish(tfm)
 
 if __name__ == '__main__':
     rospy.init_node('my_tf2_broadcaster')
     tfb = FixedTFBroadcaster()
+
     rospy.spin()

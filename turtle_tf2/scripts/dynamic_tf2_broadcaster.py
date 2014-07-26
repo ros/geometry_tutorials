@@ -36,12 +36,13 @@ roslib.load_manifest('turtle_tf2')
 
 import rospy
 import tf2_ros
+import geometry_msgs.msg
 import math
 
 if __name__ == '__ STATIC main__':
     rospy.init_node('my_tf2_broadcaster')
     br = tf2_ros.TransformBroadcaster()
-    t = geometry_msgs.msg.TransformStamped()    
+    t = geometry_msgs.msg.TransformStamped()
     
     t.header.frame_id = "turtle1"
     t.child_frame_id = "carrot1"
@@ -69,11 +70,11 @@ if __name__ == '__main__':
     
     rate = rospy.Rate(10.0)
     while not rospy.is_shutdown():
-        t = rospy.Time.now().to_sec() * math.pi
+        x = rospy.Time.now().to_sec() * math.pi
         
         t.header.stamp = rospy.Time.now()
-        t.transform.translation.x = 10 * math.sin(t)
-        t.transform.translation.y = 10 * math.cos(t)
+        t.transform.translation.x = 10 * math.sin(x)
+        t.transform.translation.y = 10 * math.cos(x)
         t.transform.translation.z = 0.0
         t.transform.rotation.x = 0.0
         t.transform.rotation.y = 0.0
