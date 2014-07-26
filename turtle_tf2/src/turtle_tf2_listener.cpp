@@ -46,8 +46,6 @@ int main(int argc, char** argv){
                                   pow(transformStamped.transform.translation.y, 2));
     turtle_vel.publish(vel_msg);
     
-    ROS_INFO("Koordinate: x: %f, y: %f, angular.z: %f" ,transformStamped.transform.translation.x, transformStamped.transform.translation.y, vel_msg.angular.z);
-
     rate.sleep();
   }
   return 0;
