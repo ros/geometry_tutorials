@@ -19,7 +19,7 @@ void poseCallback(const turtlesim::PoseConstPtr& msg){
 	transformStamped.transform.translation.y = msg->y;
 	transformStamped.transform.translation.z = 0.0;
 	tf2::Quaternion q;
-  q.setRPY(msg->theta, 0, 0);
+        q.setRPY(0,0, msg->theta);
 	transformStamped.transform.rotation.x = q.x();
 	transformStamped.transform.rotation.y = q.y();
 	transformStamped.transform.rotation.z = q.z();
@@ -30,9 +30,18 @@ void poseCallback(const turtlesim::PoseConstPtr& msg){
 
 int main(int argc, char** argv){
   ros::init(argc, argv, "my_tf2_broadcaster");
-  if (argc != 2){ROS_ERROR("need turtle name as argument"); return -1;};
-  turtle_name = argv[1];
 
+  ros::NodeHandle private_node("~");
+  if (! private_node.hasParam("turtle"))
+  {
+    if (argc != 2){ROS_ERROR("need turtle name as argument"); return -1;};
+    turtle_name = argv[1];
+  }
+  else
+  {
+    private_node.getParam("turtle", turtle_name);
+  }
+    
   ros::NodeHandle node;
   ros::Subscriber sub = node.subscribe(turtle_name+"/pose", 10, &poseCallback);
 
