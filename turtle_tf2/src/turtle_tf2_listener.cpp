@@ -25,12 +25,13 @@ int main(int argc, char** argv){
   while (node.ok()){
     geometry_msgs::TransformStamped transformStamped;
     try{
-      transformStamped = tfBuffer.lookupTransform("/turtle2", "/turtle1",
+      transformStamped = tfBuffer.lookupTransform("turtle2", "turtle1",
                                ros::Time(0));
     }
     catch (tf2::TransformException &ex) {
       ROS_ERROR("%s",ex.what());
       ros::Duration(1.0).sleep();
+      continue;
     }
 
     geometry_msgs::Twist vel_msg;
