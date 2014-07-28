@@ -58,13 +58,14 @@ if __name__ == '__main__':
         try:
             trans = tfBuffer.lookup_transform(turtle_name, 'turtle1', rospy.Time())
         except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
+            rate.sleep()
             continue
 
-        angular = 4 * math.atan2(trans.transform.translation.y, trans.transform.translation.x)
-        linear = 0.5 * math.sqrt(trans.transform.translation.x ** 2 + trans.transform.translation.y ** 2)
         msg = geometry_msgs.msg.Twist()
-        msg.linear.x = linear
-        msg.angular.z = angular
+        
+        msg.angular.z = 4 * math.atan2(trans.transform.translation.y, trans.transform.translation.x)
+        msg.linear.x = 0.5 * math.sqrt(trans.transform.translation.x ** 2 + trans.transform.translation.y ** 2)
+
         turtle_vel.publish(msg)
 
         rate.sleep()
