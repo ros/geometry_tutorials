@@ -11,7 +11,7 @@ std::string turtle_name;
 void poseCallback(const turtlesim::PoseConstPtr& msg){
   static tf2_ros::TransformBroadcaster br;
 	geometry_msgs::TransformStamped transformStamped;
-	
+  
 	transformStamped.header.stamp = ros::Time::now();
 	transformStamped.header.frame_id = "world";
 	transformStamped.child_frame_id = turtle_name;
@@ -19,7 +19,7 @@ void poseCallback(const turtlesim::PoseConstPtr& msg){
 	transformStamped.transform.translation.y = msg->y;
 	transformStamped.transform.translation.z = 0.0;
 	tf2::Quaternion q;
-        q.setRPY(0,0, msg->theta);
+        q.setRPY(0, 0, msg->theta);
 	transformStamped.transform.rotation.x = q.x();
 	transformStamped.transform.rotation.y = q.y();
 	transformStamped.transform.rotation.z = q.z();
