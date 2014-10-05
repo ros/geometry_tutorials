@@ -54,8 +54,8 @@ if __name__ == '__main__':
     rate = rospy.Rate(10.0)
     while not rospy.is_shutdown():
         try:
-            (trans, rot) = listener.lookupTransform('/turtle2', '/turtle1', rospy.Time())
-        except (tf.LookupException, tf.ConnectivityException):
+            (trans, rot) = listener.lookupTransform('/turtle2', '/turtle1', rospy.Time(0))
+        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
             continue
 
         angular = 4 * math.atan2(trans[1], trans[0])
