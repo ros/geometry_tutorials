@@ -23,6 +23,12 @@ if(catkin_EXPORTED_TARGETS)
   add_dependencies(turtle_tf_listener ${catkin_EXPORTED_TARGETS})
 endif()
 
+add_executable(turtle_tf_message_filter src/turtle_tf_message_filter.cpp)
+target_link_libraries(turtle_tf_message_filter ${catkin_LIBRARIES})
+if(catkin_EXPORTED_TARGETS)
+  add_dependencies(turtle_tf_message_filter ${catkin_EXPORTED_TARGETS})
+endif()
+
 ## Install Python Examples
 install(PROGRAMS
   nodes/dynamic_tf_broadcaster.py
