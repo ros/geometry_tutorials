@@ -9,7 +9,7 @@ int main(int argc, char** argv){
   ros::NodeHandle node;
 
   ros::service::waitForService("spawn");
-  ros::ServiceClient add_turtle = 
+  ros::ServiceClient add_turtle =
     node.serviceClient<turtlesim::Spawn>("spawn");
   turtlesim::Spawn srv;
   add_turtle.call(srv);
@@ -29,6 +29,7 @@ int main(int argc, char** argv){
     catch (tf::TransformException &ex) {
       ROS_ERROR("%s",ex.what());
       ros::Duration(1.0).sleep();
+      continue;
     }
 
     geometry_msgs::Twist vel_msg;
