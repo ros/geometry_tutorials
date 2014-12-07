@@ -29,6 +29,10 @@ if(catkin_EXPORTED_TARGETS)
   add_dependencies(turtle_tf_message_filter ${catkin_EXPORTED_TARGETS})
 endif()
 
+add_executable(turtle_tf_listener_debug src/turtle_tf_listener_debug.cpp)
+target_link_libraries(turtle_tf_listener_debug ${catkin_LIBRARIES})
+
+
 ## Install Python Examples
 install(PROGRAMS
   nodes/dynamic_tf_broadcaster.py
@@ -41,7 +45,7 @@ install(PROGRAMS
 )
 
 ## Install C++ Examples
-install(TARGETS turtle_tf_broadcaster turtle_tf_listener
+install(TARGETS turtle_tf_broadcaster turtle_tf_listener turtle_tf_listener_debug
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
