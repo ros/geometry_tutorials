@@ -5,9 +5,7 @@ Changelog for package turtle_tf2
 Forthcoming
 -----------
 * fixing install rules for turtle_tf2 fixes `#15 <https://github.com/ros/geometry_tutorials/issues/15>`_
-* finishing merge
 * adding cpp launcher for testing
-* merging changes
 * fixing exceptions and making turtle name a parameter
 * Removed debug-output
 * Added launch files for cpp example and cpp code update to work
