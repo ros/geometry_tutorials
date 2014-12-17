@@ -2,8 +2,8 @@
 Changelog for package geometry_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.1 (2014-12-17)
+------------------
 * Added new tutorial for tf2
 * Contributors: Denis Štogl
 
