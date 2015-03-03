@@ -2,6 +2,11 @@
 Changelog for package turtle_tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* remove old roslib invocations
+* Contributors: Tully Foote
+
 0.2.1 (2014-12-17)
 ------------------
 * continuing on error instead of executing the rest of the block. Fixes `#13 <https://github.com/ros/geometry_tutorials/issues/13>`_
