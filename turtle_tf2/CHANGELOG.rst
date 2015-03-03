@@ -2,8 +2,8 @@
 Changelog for package turtle_tf2
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.2 (2015-03-03)
+------------------
 * homogenizing install rules and script locations with older versions
 * remove old roslib invocations
 * Contributors: Tully Foote

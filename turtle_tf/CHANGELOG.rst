@@ -2,8 +2,8 @@
 Changelog for package turtle_tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.2 (2015-03-03)
+------------------
 * remove old roslib invocations
 * Contributors: Tully Foote
 

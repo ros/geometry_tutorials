@@ -1,6 +1,6 @@
 <package>
   <name>geometry_tutorials</name>
-  <version>0.2.1</version>
+  <version>0.2.2</version>
   <description>Metapackage of geometry tutorials ROS.</description>
   <maintainer email="william@osrfoundation.org">William Woodall</maintainer>
 
