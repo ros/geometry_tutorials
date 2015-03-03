@@ -44,12 +44,12 @@ endif()
 
 ## Install Python Examples
 install(PROGRAMS
-  scripts/dynamic_tf2_broadcaster.py
-  scripts/fixed_tf2_broadcaster.py
-  scripts/turtle_tf2_broadcaster.py
-  scripts/turtle_tf2_listener.py
-  scripts/turtle_tf2_listener_wait.py
-  scripts/turtle_tf2_message_broadcaster.py
+  nodes/dynamic_tf2_broadcaster.py
+  nodes/fixed_tf2_broadcaster.py
+  nodes/turtle_tf2_broadcaster.py
+  nodes/turtle_tf2_listener.py
+  nodes/turtle_tf2_listener_wait.py
+  nodes/turtle_tf2_message_broadcaster.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
