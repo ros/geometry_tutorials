@@ -31,9 +31,6 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-import roslib
-roslib.load_manifest('turtle_tf2')
-
 import rospy
 import tf2_ros
 import tf2_msgs.msg

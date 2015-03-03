@@ -32,8 +32,6 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
-import roslib
-roslib.load_manifest('turtle_tf2')
 import rospy
 
 # Because of transformations
@@ -47,7 +45,7 @@ import turtlesim.msg
 def handle_turtle_pose(msg, turtlename):
     br = tf2_ros.TransformBroadcaster()
     t = geometry_msgs.msg.TransformStamped()
-    
+
     t.header.stamp = rospy.Time.now()
     t.header.frame_id = "world"
     t.child_frame_id = turtlename
@@ -59,7 +57,7 @@ def handle_turtle_pose(msg, turtlename):
     t.transform.rotation.y = q[1]
     t.transform.rotation.z = q[2]
     t.transform.rotation.w = q[3]
-    
+
     br.sendTransform(t)
 
 if __name__ == '__main__':

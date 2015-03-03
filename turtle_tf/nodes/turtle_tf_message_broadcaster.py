@@ -32,8 +32,6 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
-import roslib
-roslib.load_manifest('turtle_tf')
 import rospy
 
 import turtlesim.msg

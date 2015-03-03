@@ -31,8 +31,6 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-import roslib
-roslib.load_manifest('turtle_tf2')
 import rospy
 
 import math
@@ -62,7 +60,7 @@ if __name__ == '__main__':
             continue
 
         msg = geometry_msgs.msg.Twist()
-        
+
         msg.angular.z = 4 * math.atan2(trans.transform.translation.y, trans.transform.translation.x)
         msg.linear.x = 0.5 * math.sqrt(trans.transform.translation.x ** 2 + trans.transform.translation.y ** 2)
 
