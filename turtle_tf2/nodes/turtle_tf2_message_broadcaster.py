@@ -43,7 +43,7 @@ from std_msgs.msg import Header
 
 class PointPublisher:
     def handle_turtle_pose(self, msg, turtlename):
-        self.pub.publish(PointStamped(Header(0, rospy.rostime.get_rostime(), "/world"), Point(msg.x, msg.y, 0)))
+        self.pub.publish(PointStamped(Header(0, rospy.rostime.get_rostime(), "world"), Point(msg.x, msg.y, 0)))
 
     def __init__(self):
         self.turtlename = "turtle3"  # rospy.get_param('~turtle')
