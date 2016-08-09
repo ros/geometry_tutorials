@@ -9,40 +9,40 @@
 class PoseDrawer
 {
 public:
-  PoseDrawer() : tf2_(buffer_),  target_frame_("turtle1")
+  PoseDrawer() :
+    tf2_(buffer_),  target_frame_("turtle1"),
+    tf2_filter_(point_sub_, buffer_, target_frame_, 10, 0)
   {
     point_sub_.subscribe(n_, "turtle_point_stamped", 10);
-    tf2_filter_ = new tf2_ros::MessageFilter<geometry_msgs::PointStamped>(point_sub_, buffer_, target_frame_, 10, 0);
-    tf2_filter_->registerCallback( boost::bind(&PoseDrawer::msgCallback, this, _1) );
-  } ;
+    tf2_filter_.registerCallback( boost::bind(&PoseDrawer::msgCallback, this, _1) );
+  }
 
-private:
-  message_filters::Subscriber<geometry_msgs::PointStamped> point_sub_;
-  tf2_ros::Buffer buffer_;
-  tf2_ros::TransformListener tf2_;
-  tf2_ros::MessageFilter<geometry_msgs::PointStamped> * tf2_filter_;
-  ros::NodeHandle n_;
-  std::string target_frame_;
-
-  //  Callback to register with tf2::MessageFilter to be called when transforms are available
-  void msgCallback(const boost::shared_ptr<const geometry_msgs::PointStamped>& point_ptr) 
+  //  Callback to register with tf2_ros::MessageFilter to be called when transforms are available
+  void msgCallback(const geometry_msgs::PointStampedConstPtr& point_ptr) 
   {
     geometry_msgs::PointStamped point_out;
     try 
     {
-      //tf2_.transformPoint(target_frame_, *point_ptr, point_out);
       buffer_.transform(*point_ptr, point_out, target_frame_);
       
-      printf("point of turtle 3 in frame of turtle 1 Position(x:%f y:%f z:%f)\n", 
+      ROS_INFO("point of turtle 3 in frame of turtle 1 Position(x:%f y:%f z:%f)\n", 
              point_out.point.x,
              point_out.point.y,
              point_out.point.z);
     }
     catch (tf2::TransformException &ex) 
     {
-      printf ("Failure %s\n", ex.what()); //Print exception which was caught
+      ROS_WARN("Failure %s\n", ex.what()); //Print exception which was caught
     }
-  };
+  }
+
+private:
+  std::string target_frame_;
+  tf2_ros::Buffer buffer_;
+  tf2_ros::TransformListener tf2_;
+  ros::NodeHandle n_;
+  message_filters::Subscriber<geometry_msgs::PointStamped> point_sub_;
+  tf2_ros::MessageFilter<geometry_msgs::PointStamped> tf2_filter_;
 
 };
 
@@ -52,5 +52,6 @@ int main(int argc, char ** argv)
   ros::init(argc, argv, "pose_drawer"); //Init ROS
   PoseDrawer pd; //Construct class
   ros::spin(); // Run until interupted 
+  return 0;
 };
 
