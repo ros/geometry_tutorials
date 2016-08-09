@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   tf2
   tf2_ros
+  tf2_geometry_msgs
   turtlesim
 )
 
@@ -41,6 +42,9 @@ target_link_libraries(turtle_tf2_listener ${catkin_LIBRARIES})
 if(catkin_EXPORTED_TARGETS)
   add_dependencies(turtle_tf2_listener ${catkin_EXPORTED_TARGETS})
 endif()
+
+add_executable(turtle_tf2_message_filter src/message_filter.cpp)
+target_link_libraries(turtle_tf2_message_filter ${catkin_LIBRARIES})
 
 ## Install Python Examples
 install(PROGRAMS
