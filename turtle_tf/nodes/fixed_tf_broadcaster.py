@@ -63,6 +63,6 @@ class FixedTFBroadcaster:
             self.pub_tf.publish(tfm)
 
 if __name__ == '__main__':
-    rospy.init_node('my_tf_broadcaster')
+    rospy.init_node('fixed_tf_broadcaster')
     tfb = FixedTFBroadcaster()
     rospy.spin()

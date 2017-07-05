@@ -47,7 +47,7 @@ def handle_turtle_pose(msg, turtlename):
                      "world")
 
 if __name__ == '__main__':
-    rospy.init_node('tf_turtle')
+    rospy.init_node('turtle_tf_broadcaster')
     turtlename = rospy.get_param('~turtle')
     rospy.Subscriber('/%s/pose' % turtlename,
                      turtlesim.msg.Pose,

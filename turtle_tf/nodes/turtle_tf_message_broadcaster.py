@@ -54,7 +54,7 @@ class PointPublisher:
         self.pub = rospy.Publisher('turtle_point_stamped', PointStamped, queue_size=1)
 
 if __name__ == '__main__':
-    rospy.init_node('tf_turtle_stamped_msg_publisher')
+    rospy.init_node('turtle_tf_msg_broadcaster')
     rospy.wait_for_service('spawn')
     spawner = rospy.ServiceProxy('spawn', turtlesim.srv.Spawn)
     spawner(4, 2, 0, 'turtle3')
