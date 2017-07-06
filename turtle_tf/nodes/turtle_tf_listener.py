@@ -39,7 +39,7 @@ import geometry_msgs.msg
 import turtlesim.srv
 
 if __name__ == '__main__':
-    rospy.init_node('tf_turtle')
+    rospy.init_node('turtle_tf_listener')
 
     listener = tf.TransformListener()
 
