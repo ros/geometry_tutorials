@@ -36,30 +36,6 @@ import tf2_ros
 import geometry_msgs.msg
 import math
 
-# Corresponds to adding a fixed frame described here in Section 6:
-# http://wiki.ros.org/tf2/Tutorials/Adding%20a%20frame%20%28Python%29
-#
-# if __name__ == '__ STATIC main__':
-#     rospy.init_node('dynamic_tf2_broadcaster')
-#     br = tf2_ros.TransformBroadcaster()
-#     t = geometry_msgs.msg.TransformStamped()
-
-#     t.header.frame_id = "turtle1"
-#     t.child_frame_id = "carrot1"
-#     t.transform.translation.x = 0.0
-#     t.transform.translation.y = 2.0
-#     t.transform.translation.z = 0.0
-#     t.transform.rotation.x = 0.0
-#     t.transform.rotation.y = 0.0
-#     t.transform.rotation.z = 0.0
-#     t.transform.rotation.w = 1.0
-
-#     rate = rospy.Rate(10.0)
-#     while not rospy.is_shutdown():
-#         t.header.stamp = rospy.Time.now()
-#         br.sendTransform(t)
-#         rate.sleep()
-
 if __name__ == '__main__':
     rospy.init_node('dynamic_tf2_broadcaster')
     br = tf2_ros.TransformBroadcaster()
