@@ -2,6 +2,17 @@
 Changelog for package turtle_tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.2.3 (2020-04-02)
+------------------
+* Bump CMake version to avoid CMP0048 warning (`#29 <https://github.com/ros/geometry_tutorials//issues/29>`_)
+* Merge pull request `#26 <https://github.com/ros/geometry_tutorials//issues/26>`_ from jwhendy/tutorial-node-name-fix
+* updated node names in all tf and tf2 nodes/.py files to match filenames for simplicity
+* Merge pull request `#22 <https://github.com/ros/geometry_tutorials//issues/22>`_ from 23pointsNorth/patch-1
+* Clean up code
+* Merge pull request `#20 <https://github.com/ros/geometry_tutorials//issues/20>`_ from romainreignier/indigo-devel
+* Add install rule for turtle_tf_message_filter
+* Contributors: Alejandro Hernández Cordero, Daniel Angelov, John Henderson, Romain Reignier, Tully Foote
+
 0.2.2 (2015-03-03)
 ------------------
 * remove old roslib invocations
