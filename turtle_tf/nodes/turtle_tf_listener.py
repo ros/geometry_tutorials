@@ -49,10 +49,20 @@ if __name__ == '__main__':
 
     turtle_vel = rospy.Publisher('turtle2/cmd_vel', geometry_msgs.msg.Twist, queue_size=1)
 
+    turtle1_pose = geometry_msgs.msg.PoseStamped()
+    turtle1_pose.header.frame_id = "turtle1"
+    turtle1_pose.pose.orientation.w = 1.0  # Neutral orientation
+    turtle1_pose_in_turtle2_frame = geometry_msgs.msg.PoseStamped()
+
     rate = rospy.Rate(10.0)
     while not rospy.is_shutdown():
         try:
             (trans, rot) = listener.lookupTransform('/turtle2', '/turtle1', rospy.Time())
+            turtle1_pose_in_turtle2_frame = listener.transformPose('turtle2', turtle1_pose)
+            ### None of the below alternatives work
+            # turtle1_pose_in_turtle2_frame = listener.transformPose("/turtle2", rospy.Time(), turtle1_pose, "world", turtle1_pose_in_turtle2_frame)
+            # turtle1_pose_in_turtle2_frame = listener.transformPose("/turtle2", rospy.Time(), turtle1_pose, "world")
+            # turtle1_pose_in_turtle2_frame = listener.transformPose("/turtle2", rospy.Time(), turtle1_pose)
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
             continue
 
@@ -62,5 +72,7 @@ if __name__ == '__main__':
         msg.linear.x = linear
         msg.angular.z = angular
         turtle_vel.publish(msg)
+
+        # rospy.loginfo("Turtle2 sees turtle1 at x: %2f, y:  %2f", turtle1_pose_in_turtle2_frame.pose.position.x, turtle1_pose_in_turtle2_frame.pose.position.y)
 
         rate.sleep()
