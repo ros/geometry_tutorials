@@ -17,11 +17,10 @@ class FramePublisher(Node):
             Pose,
             '/%s/pose' % turtlename,
             self.handle_turtle_pose,
-            10)
+            1)
         self.subscription 
 
     def handle_turtle_pose(self, msg):
-        # self.get_logger().info('I heard: "%s"' % msg)
         br = TransformBroadcaster(self)
         t = TransformStamped()
 
@@ -38,7 +37,6 @@ class FramePublisher(Node):
         t.transform.rotation.z = q[3]
         t.transform.rotation.w = q[0]
 
-        # self.get_logger().info(repr(t.transform))
         br.sendTransform(t)
 
 def main():
