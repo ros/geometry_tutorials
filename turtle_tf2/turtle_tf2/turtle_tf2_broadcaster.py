@@ -10,15 +10,17 @@ from turtlesim.msg import Pose
 import numpy
 
 class FramePublisher(Node):
-    def __init__(self, turtlename):
+    def __init__(self):
         super().__init__('frame_publisher')
-        self.turtlename = turtlename
+        self.declare_parameter('turtlename', 'turtle')
+        self.turtlename = self.get_parameter('turtlename').get_parameter_value().string_value
         self.subscription = self.create_subscription(
             Pose,
-            '/%s/pose' % turtlename,
+            '/%s/pose' % self.turtlename,
             self.handle_turtle_pose,
             1)
         self.subscription 
+        
 
     def handle_turtle_pose(self, msg):
         br = TransformBroadcaster(self)
@@ -41,11 +43,7 @@ class FramePublisher(Node):
 
 def main():
     rclpy.init()
-    turtlename = "turtle1"
-
-    # print(self.get_parameter('some_int')._value)
-
-    node = FramePublisher(turtlename)
+    node = FramePublisher()
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
