@@ -3,9 +3,18 @@
 <package format="3">
   <name>turtle_tf2</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="abilkasov@gmail.com">shyngys</maintainer>
-  <license>TODO: License declaration</license>
+  <description>
+    turtle_tf2 demonstrates how to write a ROS2 tf2 broadcaster and listener with the turtlesim. The turtle_tf2_listener commands turtle2 to follow turtle1 around as you drive turtle1 using the keyboard.
+  </description>
+  <maintainer email="abilkasov@gmail.com">Shyngyskhan Abilkassov</maintainer>
+  <license>Apache License, Version 2.0</license>
+
+  <run_depend>rclpy</run_depend>
+  <run_depend>tf2_ros_py</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>turtlesim</run_depend>
+  <run_depend>launch_ros</run_depend>
+  <run_depend>launch</run_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

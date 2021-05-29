@@ -1,3 +1,5 @@
+import os
+from glob import glob
 from setuptools import setup
 
 package_name = 'turtle_tf2'
@@ -7,16 +9,17 @@ setup(
     version='0.0.0',
     packages=[package_name],
     data_files=[
-        ('share/ament_index/resource_index/packages',
-            ['resource/' + package_name]),
+        ('share/ament_index/resource_index/packages', ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        (os.path.join('share', package_name, 'launch'), glob(os.path.join('launch', '*.launch.py'))),
+        (os.path.join('share', package_name, 'rviz'), glob(os.path.join('rviz', '*.rviz'))),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='shyngys',
+    maintainer='Shyngyskhan Abilkassov',
     maintainer_email='abilkasov@gmail.com',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    description='turtle_tf2 demonstrates how to write a ROS2 tf2 broadcaster and listener with the turtlesim. The turtle_tf2_listener commands turtle2 to follow turtle1 around as you drive turtle1 using the keyboard.',
+    license='Apache License, Version 2.0',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
