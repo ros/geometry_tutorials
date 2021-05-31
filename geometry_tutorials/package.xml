@@ -1,10 +1,11 @@
-<package>
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>geometry_tutorials</name>
-  <version>0.2.3</version>
+  <version>0.0.0</version>
   <description>Metapackage of geometry tutorials ROS.</description>
   <maintainer email="william@osrfoundation.org">William Woodall</maintainer>
-
-  <license>BSD</license>
+  <license>Apache License, Version 2.0</license>
 
   <url type="website">http://www.ros.org/wiki/geometry_tutorials</url>
   <url type="repository">https://github.com/ros/geometry_tutorials</url>
@@ -12,10 +13,7 @@
 
   <author email="tfoote@osrfoundation.org">Tully Foote</author>
 
-  <buildtool_depend>catkin</buildtool_depend>
-
-  <run_depend>turtle_tf</run_depend>
-	<run_depend>turtle_tf2</run_depend>
+	<run_depend>turtle_tf2_py</run_depend>
 
   <export>
     <metapackage/>

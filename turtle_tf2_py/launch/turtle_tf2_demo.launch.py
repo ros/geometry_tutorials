@@ -24,7 +24,7 @@ def generate_launch_description():
             name='sim'
         ),
         Node(
-            package='turtle_tf2',
+            package='turtle_tf2_py',
             executable='turtle_tf2_broadcaster',
             name='broadcaster1',
             parameters=[
@@ -32,7 +32,7 @@ def generate_launch_description():
             ]
         ),
         Node(
-            package='turtle_tf2',
+            package='turtle_tf2_py',
             executable='turtle_tf2_broadcaster',
             name='broadcaster2',
             parameters=[
@@ -40,7 +40,7 @@ def generate_launch_description():
             ]
         ),
         Node(
-            package='turtle_tf2',
+            package='turtle_tf2_py',
             executable='turtle_tf2_listener',
             name='listener'
         ),
