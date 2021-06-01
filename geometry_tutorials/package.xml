@@ -5,7 +5,8 @@
   <version>0.0.0</version>
   <description>Metapackage of geometry tutorials ROS.</description>
   <maintainer email="william@osrfoundation.org">William Woodall</maintainer>
-  <license>Apache License, Version 2.0</license>
+  <maintainer email="abilkasov@gmail.com">Shyngyskhan Abilkassov</maintainer>
+  <license>TODO</license>
 
   <url type="website">http://www.ros.org/wiki/geometry_tutorials</url>
   <url type="repository">https://github.com/ros/geometry_tutorials</url>
@@ -13,9 +14,9 @@
 
   <author email="tfoote@osrfoundation.org">Tully Foote</author>
 
-  <exec_depend>turtle_tf2_py</exec_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
 
   <export>
-    <metapackage/>
+    <build_type>ament_cmake</build_type>
   </export>
 </package>
