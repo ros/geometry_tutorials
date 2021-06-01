@@ -4,7 +4,7 @@
   <name>geometry_tutorials</name>
   <version>0.0.0</version>
   <description>Metapackage of geometry tutorials ROS.</description>
-  <maintainer email="william@osrfoundation.org">William Woodall</maintainer>
+  <maintainer email="alejandro@openrobotics.org">Alejandro Hernández Cordero</maintainer>
   <maintainer email="abilkasov@gmail.com">Shyngyskhan Abilkassov</maintainer>
   <license>TODO</license>
 
