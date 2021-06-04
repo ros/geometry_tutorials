@@ -29,7 +29,7 @@ class StaticFramePublisher(Node):
     """
 
     def __init__(self, transformation):
-        super().__init__('my_static_tf2_broadcaster')
+        super().__init__('static_turtle_tf2_broadcaster')
 
         self._tf_publisher = StaticTransformBroadcaster(self)
 

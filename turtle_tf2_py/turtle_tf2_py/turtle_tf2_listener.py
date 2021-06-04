@@ -27,7 +27,7 @@ from rclpy.duration import Duration
 
 class FrameListener(Node):
     def __init__(self):
-        super().__init__('frame_listener')
+        super().__init__('turtle_tf2_frame_listener')
 
         self._tf_buffer = Buffer()
         self._tf_listener = TransformListener(self._tf_buffer, self, spin_thread=False)

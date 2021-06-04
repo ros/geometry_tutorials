@@ -23,7 +23,7 @@ from turtlesim.msg import Pose
 
 class FramePublisher(Node):
     def __init__(self):
-        super().__init__('frame_publisher')
+        super().__init__('turtle_tf2_frame_publisher')
 
         # Declare and acquire `turtlename` parameter
         self.declare_parameter('turtlename', 'turtle')
