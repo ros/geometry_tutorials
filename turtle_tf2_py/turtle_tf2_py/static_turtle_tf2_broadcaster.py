@@ -23,14 +23,13 @@ import transforms3d
 class StaticFramePublisher(Node):
     """
     Broadcast transforms that never change.
-    This example publishes transforms from `base_link` to a platform and sensor
-    frames.
+    This example publishes transforms from `world` to a static turtle frame.
     The transforms are only published once at startup, and are constant for all
     time.
     """
 
     def __init__(self, transformation):
-        super().__init__('example_static_frame_publisher')
+        super().__init__('my_static_tf2_broadcaster')
 
         self._tf_publisher = StaticTransformBroadcaster(self)
 
@@ -59,6 +58,8 @@ class StaticFramePublisher(Node):
 
 def main():
     logger = rclpy.logging.get_logger("logger")
+
+    # obtain parameters from command line arguments
     if len(sys.argv) < 8:
         logger.info('Invalid number of parameters. Usage: \n'
                     '$ ros2 run turtle_tf2_py static_turtle_tf2_broadcaster'
@@ -69,6 +70,7 @@ def main():
             logger.info('Your static turtle name cannot be "world"')
             sys.exit(0)
 
+    # pass parameters and initialize node
     rclpy.init()
     node = StaticFramePublisher(sys.argv)
     try:
