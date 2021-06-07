@@ -51,9 +51,7 @@ class StaticFramePublisher(Node):
         static_transformStamped.transform.rotation.y = quat[2]
         static_transformStamped.transform.rotation.z = quat[3]
 
-        return (
-            static_transformStamped
-        )
+        return (static_transformStamped)
 
 
 def main():
