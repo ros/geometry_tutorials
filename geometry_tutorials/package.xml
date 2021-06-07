@@ -6,7 +6,7 @@
   <description>Metapackage of geometry tutorials ROS.</description>
   <maintainer email="alejandro@openrobotics.org">Alejandro Hernández Cordero</maintainer>
   <maintainer email="abilkasov@gmail.com">Shyngyskhan Abilkassov</maintainer>
-  <license>TODO</license>
+  <license>Apache License, Version 2.0</license>
 
   <url type="website">http://www.ros.org/wiki/geometry_tutorials</url>
   <url type="repository">https://github.com/ros/geometry_tutorials</url>
