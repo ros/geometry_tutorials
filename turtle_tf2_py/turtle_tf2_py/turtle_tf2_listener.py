@@ -48,7 +48,7 @@ class FrameListener(Node):
         # Call request
         self.client.call_async(request)
 
-        # Crete turtle2 velocity publisher
+        # Create turtle2 velocity publisher
         self.turtle_vel_ = self.create_publisher(Twist, 'turtle2/cmd_vel', 1)
 
         # Call on_timer function every second
