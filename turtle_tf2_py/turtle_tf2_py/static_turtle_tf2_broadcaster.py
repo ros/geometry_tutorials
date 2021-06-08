@@ -23,6 +23,7 @@ import transforms3d
 class StaticFramePublisher(Node):
     """
     Broadcast transforms that never change.
+
     This example publishes transforms from `world` to a static turtle frame.
     The transforms are only published once at startup, and are constant for all
     time.

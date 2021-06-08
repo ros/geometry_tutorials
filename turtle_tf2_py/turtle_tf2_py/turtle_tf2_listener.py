@@ -62,11 +62,14 @@ class FrameListener(Node):
         # and send velocity commands for turtle2 to reach turtle1
         try:
             when = rclpy.time.Time()
-            trans = self._tf_buffer.lookup_transform(to_frame_rel, from_frame_rel, when, timeout=Duration(seconds=1.0))
+            trans = self._tf_buffer.lookup_transform(
+                to_frame_rel, from_frame_rel, when, timeout=Duration(seconds=1.0))
 
             msg = Twist()
-            msg.angular.z = 1.0 * math.atan2(trans.transform.translation.y, trans.transform.translation.x)
-            msg.linear.x = 0.5 * math.sqrt(trans.transform.translation.x ** 2 + trans.transform.translation.y ** 2)
+            msg.angular.z = 1.0 * math.atan2(
+                trans.transform.translation.y, trans.transform.translation.x)
+            msg.linear.x = 0.5 * math.sqrt(
+                trans.transform.translation.x ** 2 + trans.transform.translation.y ** 2)
             self.turtle_vel_.publish(msg)
         except LookupException:
             self.get_logger().info('transform not ready')
