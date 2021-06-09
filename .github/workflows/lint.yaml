@@ -9,10 +9,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-          linter: [flake8, pep257]
+          linter: [copyright, flake8, pep257]
     steps:
-    - uses: actions/checkout@v1
-    - uses: ros-tooling/setup-ros@v0.1
+    - uses: actions/checkout@v2
+    - uses: ros-tooling/setup-ros@v0.2
       with:
         required-ros-distributions: rolling
     - uses: ros-tooling/action-ros-lint@v0.1
