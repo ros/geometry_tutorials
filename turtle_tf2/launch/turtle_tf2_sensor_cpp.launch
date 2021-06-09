@@ -1,4 +1,0 @@
-<launch>
-  <include file="$(find turtle_tf2)/launch/turtle_tf2_demo_cpp.launch" />
-  <node name="turtle_pose_stamped_publisher" pkg="turtle_tf2" type="turtle_tf2_message_broadcaster.py" respawn="false" output="screen" />	
-</launch>
