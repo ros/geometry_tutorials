@@ -12,20 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import math
+
+from geometry_msgs.msg import Twist
+
 import rclpy
+from rclpy.duration import Duration
 from rclpy.node import Node
-import rclpy.time
+
 from tf2_ros import LookupException
 from tf2_ros.buffer import Buffer
 from tf2_ros.transform_listener import TransformListener
 
 from turtlesim.srv import Spawn
-from geometry_msgs.msg import Twist
-import math
-from rclpy.duration import Duration
 
 
 class FrameListener(Node):
+
     def __init__(self):
         super().__init__('turtle_tf2_frame_listener')
 
@@ -41,7 +44,7 @@ class FrameListener(Node):
 
         # Initialize request with turtle name and coordinates
         request = Spawn.Request()
-        request.name = "turtle2"
+        request.name = 'turtle2'
         request.x = float(4)
         request.y = float(2)
         request.theta = float(0)
