@@ -13,10 +13,14 @@
 # limitations under the License.
 
 import sys
+
+from geometry_msgs.msg import TransformStamped
+
 import rclpy
 from rclpy.node import Node
-from geometry_msgs.msg import TransformStamped
+
 from tf2_ros.static_transform_broadcaster import StaticTransformBroadcaster
+
 import transforms3d
 
 
@@ -56,7 +60,7 @@ class StaticFramePublisher(Node):
 
 
 def main():
-    logger = rclpy.logging.get_logger("logger")
+    logger = rclpy.logging.get_logger('logger')
 
     # obtain parameters from command line arguments
     if len(sys.argv) < 8:
