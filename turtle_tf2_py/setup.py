@@ -19,8 +19,10 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='Shyngyskhan Abilkassov',
-    maintainer_email='abilkasov@gmail.com',
+    author='Shyngyskhan Abilkassov',
+    author_email='abilkasov@gmail.com',
+    maintainer='Alejandro Hernández Cordero, Audrow Nash',
+    maintainer_email='alejandro@openrobotics.org, audrow@openrobotics.org',
     description=(
         'turtle_tf2_py demonstrates how to write a ROS2 Python tf2 broadcaster and '
         'listener with the turtlesim. The turtle_tf2_listener commands turtle2 to '
