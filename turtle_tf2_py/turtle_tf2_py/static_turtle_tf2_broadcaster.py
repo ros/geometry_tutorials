@@ -23,6 +23,7 @@ from tf2_ros.static_transform_broadcaster import StaticTransformBroadcaster
 
 import tf_transformations
 
+
 class StaticFramePublisher(Node):
     """
     Broadcast transforms that never change.
