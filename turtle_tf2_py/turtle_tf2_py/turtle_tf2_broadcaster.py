@@ -19,7 +19,7 @@ from rclpy.node import Node
 
 from tf2_ros import TransformBroadcaster
 
-import transforms3d
+import tf_transformations
 
 from turtlesim.msg import Pose
 
@@ -55,11 +55,11 @@ class FramePublisher(Node):
         t.transform.translation.x = msg.x
         t.transform.translation.y = msg.y
         t.transform.translation.z = 0.0
-        q = transforms3d.taitbryan.euler2quat(msg.theta, 0, 0)
-        t.transform.rotation.x = q[1]
-        t.transform.rotation.y = q[2]
-        t.transform.rotation.z = q[3]
-        t.transform.rotation.w = q[0]
+        q = tf_transformations.quaternion_from_euler(0, 0, msg.theta)
+        t.transform.rotation.x = q[0]
+        t.transform.rotation.y = q[1]
+        t.transform.rotation.z = q[2]
+        t.transform.rotation.w = q[3]
 
         # Send the transformation
         br.sendTransform(t)
