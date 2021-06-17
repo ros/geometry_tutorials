@@ -48,7 +48,7 @@ class StaticFramePublisher(Node):
         static_transformStamped.child_frame_id = sys.argv[1]
         static_transformStamped.transform.translation.x = float(sys.argv[2])
         static_transformStamped.transform.translation.y = float(sys.argv[3])
-        static_transformStamped.transform.translation.z = float(sys.argv[4])                    
+        static_transformStamped.transform.translation.z = float(sys.argv[4])
         quat = tf_transformations.quaternion_from_euler(
             float(sys.argv[5]), float(sys.argv[6]), float(sys.argv[7]))
         static_transformStamped.transform.rotation.x = quat[0]
