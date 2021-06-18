@@ -21,7 +21,7 @@ from rclpy.node import Node
 
 from tf2_ros.static_transform_broadcaster import StaticTransformBroadcaster
 
-import transforms3d
+import tf_transformations
 
 
 class StaticFramePublisher(Node):
@@ -49,12 +49,12 @@ class StaticFramePublisher(Node):
         static_transformStamped.transform.translation.x = float(sys.argv[2])
         static_transformStamped.transform.translation.y = float(sys.argv[3])
         static_transformStamped.transform.translation.z = float(sys.argv[4])
-        quat = transforms3d.taitbryan.euler2quat(
-                    float(sys.argv[7]), float(sys.argv[6]), float(sys.argv[5]))
-        static_transformStamped.transform.rotation.w = quat[0]
-        static_transformStamped.transform.rotation.x = quat[1]
-        static_transformStamped.transform.rotation.y = quat[2]
-        static_transformStamped.transform.rotation.z = quat[3]
+        quat = tf_transformations.quaternion_from_euler(
+            float(sys.argv[5]), float(sys.argv[6]), float(sys.argv[7]))
+        static_transformStamped.transform.rotation.x = quat[0]
+        static_transformStamped.transform.rotation.y = quat[1]
+        static_transformStamped.transform.rotation.z = quat[2]
+        static_transformStamped.transform.rotation.w = quat[3]
 
         return (static_transformStamped)
 
