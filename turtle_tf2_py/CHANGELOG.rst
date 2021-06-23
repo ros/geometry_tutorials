@@ -2,8 +2,8 @@
 Changelog for package turtle_tf2_py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.3.1 (2021-06-23)
+------------------
 * Replace dependency on transforms3d pip package to tf_transformations ROS2 package (`#38 <https://github.com/ros/geometry_tutorials/issues/38>`_)
 * Contributors: kurshakuz
 
