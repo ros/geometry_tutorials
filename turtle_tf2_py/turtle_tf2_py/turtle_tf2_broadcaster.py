@@ -31,7 +31,8 @@ class FramePublisher(Node):
 
         # Declare and acquire `turtlename` parameter
         self.declare_parameter('turtlename', 'turtle')
-        self.turtlename = self.get_parameter('turtlename').get_parameter_value().string_value
+        self.turtlename = self.get_parameter(
+            'turtlename').get_parameter_value().string_value
 
         # Subscribe to a turtle{1}{2}/pose topic and call handle_turtle_pose
         # callback function on each message
