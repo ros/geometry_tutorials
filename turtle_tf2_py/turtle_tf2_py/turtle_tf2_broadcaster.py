@@ -60,8 +60,8 @@ class FramePublisher(Node):
         t.transform.translation.y = msg.y
         t.transform.translation.z = 0.0
 
-        # For the same reason, turtle can only rotate around one axis 
-        # and this why we set rotation in x and y to 0 and obtain 
+        # For the same reason, turtle can only rotate around one axis
+        # and this why we set rotation in x and y to 0 and obtain
         # rotation in z axis from the message
         q = tf_transformations.quaternion_from_euler(0, 0, msg.theta)
         t.transform.rotation.x = q[0]
