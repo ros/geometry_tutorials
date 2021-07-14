@@ -42,6 +42,9 @@ def generate_launch_description():
         Node(
             package='turtle_tf2_py',
             executable='turtle_tf2_listener',
-            name='listener'
+            name='listener',
+            parameters=[
+                {'target_frame': 'turtle1'}
+            ]
         ),
     ])
