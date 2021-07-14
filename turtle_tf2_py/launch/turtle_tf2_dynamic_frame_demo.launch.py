@@ -26,7 +26,8 @@ from launch_ros.actions import Node
 def generate_launch_description():
     demo_nodes = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('turtle_tf2_py'), 'launch'), '/turtle_tf2_demo.launch.py']),
+            get_package_share_directory('turtle_tf2_py'), 'launch'),
+            '/turtle_tf2_demo.launch.py']),
         )
 
     return LaunchDescription([
