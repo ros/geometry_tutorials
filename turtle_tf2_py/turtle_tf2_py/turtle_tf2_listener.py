@@ -32,6 +32,11 @@ class FrameListener(Node):
     def __init__(self):
         super().__init__('turtle_tf2_frame_listener')
 
+        # Declare and acquire `target_frame` parameter
+        self.declare_parameter('target_frame', 'turtle1')
+        self.target_frame = self.get_parameter(
+            'target_frame').get_parameter_value().string_value
+
         self._tf_buffer = Buffer()
         self._tf_listener = TransformListener(self._tf_buffer, self)
 
@@ -59,11 +64,13 @@ class FrameListener(Node):
         self._output_timer = self.create_timer(1.0, self.on_timer)
 
     def on_timer(self):
-        from_frame_rel = 'turtle1'
+        # Store frame names in variables that will be used to
+        # compute transformations
+        from_frame_rel = self.target_frame
         to_frame_rel = 'turtle2'
 
-        # Look up for the transformation between turtle1 and turtle2 frames
-        # and send velocity commands for turtle2 to reach turtle1
+        # Look up for the transformation between target_frame and turtle2 frames
+        # and send velocity commands for turtle2 to reach target_frame
         try:
             now = rclpy.time.Time()
             trans = self._tf_buffer.lookup_transform(
