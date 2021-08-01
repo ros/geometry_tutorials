@@ -46,9 +46,12 @@ def generate_launch_description():
                 {'turtlename': 'turtle2'}
             ]
         ),
-        # Node(
-        #     package='cpp_pubsub',
-        #     executable='turtle_tf2_listener',
-        #     name='listener',
-        # ),
+        Node(
+            package='turtle_tf2_cpp',
+            executable='turtle_tf2_listener',
+            name='listener',
+            parameters=[
+                {'target_frame': LaunchConfiguration('target_frame')}
+            ]
+        ),
     ])
