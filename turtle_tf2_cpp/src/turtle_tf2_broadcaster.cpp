@@ -48,7 +48,6 @@ public:
     // Declare and acquire `turtlename` parameter
     this->declare_parameter<std::string>("turtlename", "turtle");
     this->get_parameter("turtlename", turtlename_);
-    // RCLCPP_INFO(this->get_logger(), "Hello %s", turtlename_.c_str());
 
     // Initialize the transform broadcaster
     tf_broadcaster_ =
@@ -70,9 +69,6 @@ private:
   {
     rclcpp::Time now;
     geometry_msgs::msg::TransformStamped t;
-
-    // RCLCPP_INFO(this->get_logger(), "Pose: '%f'", msg->x);
-    // RCLCPP_INFO(this->get_logger(), "Turtlename: '%s'", turtlename_.c_str());
 
     // Read message content and assign it to
     // corresponding tf variables

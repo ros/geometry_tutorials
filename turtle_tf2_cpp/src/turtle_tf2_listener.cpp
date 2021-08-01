@@ -117,14 +117,15 @@ private:
       return;
     }
 
-    geometry_msgs::msg::Twist vel_msg;
-    vel_msg.angular.z = 1.0 * atan2(
+    geometry_msgs::msg::Twist msg;
+    msg.angular.z = 1.0 * atan2(
       transformStamped.transform.translation.y,
       transformStamped.transform.translation.x);
-    vel_msg.linear.x = 0.5 * sqrt(
+
+    msg.linear.x = 0.5 * sqrt(
       pow(transformStamped.transform.translation.x, 2) +
       pow(transformStamped.transform.translation.y, 2));
-    publisher_->publish(vel_msg);
+    publisher_->publish(msg);
   }
   rclcpp::TimerBase::SharedPtr timer_;
   std::shared_ptr<tf2_ros::TransformListener> transform_listener_;
