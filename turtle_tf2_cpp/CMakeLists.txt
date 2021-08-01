@@ -48,9 +48,9 @@ ament_target_dependencies(
 )
 
 install(TARGETS
+  static_turtle_tf2_broadcaster
   turtle_tf2_broadcaster
   turtle_tf2_listener
-  static_turtle_tf2_broadcaster
   DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY

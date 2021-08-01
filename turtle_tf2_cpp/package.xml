@@ -2,15 +2,25 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>turtle_tf2_cpp</name>
-  <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="abilkasov@gmail.com">shyngys</maintainer>
-  <license>TODO: License declaration</license>
+  <version>0.3.1</version>
+  <description>
+    turtle_tf2_cpp demonstrates how to write a ROS2 C++ tf2 broadcaster and listener with the turtlesim. The turtle_tf2_listener commands turtle2 to follow turtle1 around as you drive turtle1 using the keyboard.
+  </description>  <maintainer email="alejandro@openrobotics.org">Alejandro Hernández Cordero</maintainer>
+  <maintainer email="audrow@openrobotics.org">Audrow Nash</maintainer>
+  <license>Apache License, Version 2.0</license>
+
+  <author email="abilkasov@gmail.com">Shyngyskhan Abilkassov</author>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
-  <depend>rclcpp</depend>
-  <depend>std_msgs</depend>
-  <depend>tf2</depend>
+  
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>tf2</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>turtlesim</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
