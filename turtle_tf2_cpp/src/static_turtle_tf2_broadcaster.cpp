@@ -41,6 +41,8 @@ public:
         : Node("static_turtle_tf2_broadcaster")
     {
         tf_publisher_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
+
+        // Publish static transforms once at startup
         this->make_transforms(transformation);
     }
 
@@ -49,6 +51,10 @@ private:
     {
         rclcpp::Time now;
         geometry_msgs::msg::TransformStamped t;
+
+        t.header.stamp = now;
+        t.header.frame_id = "world";
+        t.child_frame_id = transformation[1];
 
         t.transform.translation.x = atof(transformation[2]);
         t.transform.translation.y = atof(transformation[3]);
@@ -62,10 +68,7 @@ private:
         t.transform.rotation.y = q.y();
         t.transform.rotation.z = q.z();
         t.transform.rotation.w = q.w();
-        t.header.frame_id = "world";
-        t.child_frame_id = transformation[1];
-        t.header.stamp = now;
-        
+
         tf_publisher_->sendTransform(t);
     }
     std::shared_ptr<tf2_ros::StaticTransformBroadcaster> tf_publisher_;
@@ -74,8 +77,8 @@ private:
 int main(int argc, char *argv[])
 {
     auto logger = rclcpp::get_logger("logger");
-    rclcpp::init(argc, argv);
 
+    // Obtain parameters from command line arguments
     if (argc != 8)
     {
         RCLCPP_INFO(logger, "Invalid number of parameters\nusage: "
@@ -89,6 +92,8 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+    // Pass parameters and initialize node
+    rclcpp::init(argc, argv);
     rclcpp::spin(std::make_shared<StaticFramePublisher>(argv));
     rclcpp::shutdown();
     return 0;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, Open Source Robotics Foundation
+ * Copyright (c) 2021, Open Source Robotics Foundation
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,34 +41,50 @@ public:
     FramePublisher()
         : Node("turtle_tf2_frame_publisher")
     {
+        // Declare and acquire `turtlename` parameter
         this->declare_parameter<std::string>("turtlename", "turtle");
         this->get_parameter("turtlename", turtlename_);
-        RCLCPP_INFO(this->get_logger(), "Hello %s", turtlename_.c_str());
+        // RCLCPP_INFO(this->get_logger(), "Hello %s", turtlename_.c_str());
 
+        // Initialize the transform broadcaster
         tf_broadcaster_ =
             std::make_unique<tf2_ros::TransformBroadcaster>(*this);
 
+        // Subscribe to a turtle{1}{2}/pose topic and call handle_turtle_pose
+        // callback function on each message
         std::ostringstream stream;
         stream << "/" << turtlename_.c_str() << "/pose";
         std::string topic_name = stream.str();
 
         subscription_ = this->create_subscription<turtlesim::msg::Pose>(
             topic_name, 10,
-            std::bind(&FramePublisher::pose_callback, this, _1));
+            std::bind(&FramePublisher::handle_turtle_pose, this, _1));
     }
 
 private:
-    void pose_callback(const turtlesim::msg::Pose::SharedPtr msg) const
+    void handle_turtle_pose(const turtlesim::msg::Pose::SharedPtr msg) const
     {
         rclcpp::Time now;
-        RCLCPP_INFO(this->get_logger(), "Pose: '%f'", msg->x);
-        RCLCPP_INFO(this->get_logger(), "Turtlename: '%s'", turtlename_.c_str());
-
         geometry_msgs::msg::TransformStamped t;
 
+        // RCLCPP_INFO(this->get_logger(), "Pose: '%f'", msg->x);
+        // RCLCPP_INFO(this->get_logger(), "Turtlename: '%s'", turtlename_.c_str());
+
+        // Read message content and assign it to
+        // corresponding tf variables
+        t.header.stamp = now;
+        t.header.frame_id = "world";
+        t.child_frame_id = turtlename_.c_str();
+
+        // Turtle only exists in 2D, thus we get x and y translation
+        // coordinates from the message and set the z coordinate to 0
         t.transform.translation.x = msg->x;
         t.transform.translation.y = msg->y;
         t.transform.translation.z = 0.0;
+
+        // For the same reason, turtle can only rotate around one axis
+        // and this why we set rotation in x and y to 0 and obtain
+        // rotation in z axis from the message
         tf2::Quaternion q;
         q.setRPY(0, 0, msg->theta);
         t.transform.rotation.x = q.x();
@@ -76,9 +92,7 @@ private:
         t.transform.rotation.z = q.z();
         t.transform.rotation.w = q.w();
 
-        t.header.frame_id = "world";
-        t.child_frame_id = turtlename_.c_str();
-        t.header.stamp = now;
+        // Send the transformation
         tf_broadcaster_->sendTransform(t);
     }
     rclcpp::Subscription<turtlesim::msg::Pose>::SharedPtr subscription_;
