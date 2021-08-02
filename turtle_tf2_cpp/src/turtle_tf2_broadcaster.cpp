@@ -65,7 +65,7 @@ public:
   }
 
 private:
-  void handle_turtle_pose(const turtlesim::msg::Pose::SharedPtr msg) const
+  void handle_turtle_pose(const std::shared_ptr<turtlesim::msg::Pose> msg) const
   {
     rclcpp::Time now;
     geometry_msgs::msg::TransformStamped t;

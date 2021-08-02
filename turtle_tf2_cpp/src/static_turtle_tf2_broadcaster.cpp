@@ -89,6 +89,9 @@ int main(int argc, char * argv[])
       "child_frame_name x y z roll pitch yaw");
     return 1;
   }
+
+  // As the parent frame of the transform is `world`, it is
+  // necessary to check that the frame name passed is different
   if (strcmp(argv[1], "world") == 0) {
     RCLCPP_INFO(logger, "Your static turtle name cannot be 'world'");
     return 1;

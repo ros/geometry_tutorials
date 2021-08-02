@@ -5,7 +5,8 @@
   <version>0.3.1</version>
   <description>
     turtle_tf2_cpp demonstrates how to write a ROS2 C++ tf2 broadcaster and listener with the turtlesim. The turtle_tf2_listener commands turtle2 to follow turtle1 around as you drive turtle1 using the keyboard.
-  </description>  <maintainer email="alejandro@openrobotics.org">Alejandro Hernández Cordero</maintainer>
+  </description>
+  <maintainer email="alejandro@openrobotics.org">Alejandro Hernández Cordero</maintainer>
   <maintainer email="audrow@openrobotics.org">Audrow Nash</maintainer>
   <license>Apache License, Version 2.0</license>
 
