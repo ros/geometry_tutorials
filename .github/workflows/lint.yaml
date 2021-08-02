@@ -20,3 +20,20 @@ jobs:
         distribution: rolling
         linter: ${{ matrix.linter }}
         package-name: turtle_tf2_py
+  ament_lint_cpp:
+    name: ament_${{ matrix.linter }}
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+          linter: [copyright, cpplint, cppcheck, uncrustify]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ros-tooling/setup-ros@v0.2
+      with:
+        required-ros-distributions: rolling
+    - uses: ros-tooling/action-ros-lint@v0.1
+      with:
+        distribution: rolling
+        linter: ${{ matrix.linter }}
+        package-name: turtle_tf2_cpp
