@@ -88,10 +88,6 @@ private:
     std::string fromFrameRel = target_frame_.c_str();
     std::string toFrameRel = "turtle2";
 
-    // Declare weights used to tune the behavior of the turtle
-    double scaleRotationRate = 1.0;
-    double scaleForwardSpeed = 0.5;
-
     geometry_msgs::msg::TransformStamped transformStamped;
 
     // Look up for the transformation between target_frame and turtle2 frames
@@ -107,13 +103,17 @@ private:
     }
 
     geometry_msgs::msg::Twist msg;
+
+    static const double scaleRotationRate = 1.0;
     msg.angular.z = scaleRotationRate * atan2(
       transformStamped.transform.translation.y,
       transformStamped.transform.translation.x);
 
+    static const double scaleForwardSpeed = 0.5;
     msg.linear.x = scaleForwardSpeed * sqrt(
       pow(transformStamped.transform.translation.x, 2) +
       pow(transformStamped.transform.translation.y, 2));
+
     publisher_->publish(msg);
   }
   rclcpp::TimerBase::SharedPtr timer_;
