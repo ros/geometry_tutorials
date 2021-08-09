@@ -85,8 +85,12 @@ private:
   {
     // Store frame names in variables that will be used to
     // compute transformations
-    std::string from_frame_rel = target_frame_.c_str();
-    std::string to_frame_rel = "turtle2";
+    std::string fromFrameRel = target_frame_.c_str();
+    std::string toFrameRel = "turtle2";
+
+    // Declare weights used to tune the behavior of the turtle
+    double scaleRotationRate = 1.0;
+    double scaleForwardSpeed = 0.5;
 
     geometry_msgs::msg::TransformStamped transformStamped;
 
@@ -94,7 +98,7 @@ private:
     // and send velocity commands for turtle2 to reach target_frame
     try {
       transformStamped = tf_buffer_->lookupTransform(
-        to_frame_rel, from_frame_rel,
+        toFrameRel, fromFrameRel,
         tf2::TimePoint(),
         500ms);
     } catch (tf2::LookupException & ex) {
@@ -103,11 +107,11 @@ private:
     }
 
     geometry_msgs::msg::Twist msg;
-    msg.angular.z = 1.0 * atan2(
+    msg.angular.z = scaleRotationRate * atan2(
       transformStamped.transform.translation.y,
       transformStamped.transform.translation.x);
 
-    msg.linear.x = 0.5 * sqrt(
+    msg.linear.x = scaleForwardSpeed * sqrt(
       pow(transformStamped.transform.translation.x, 2) +
       pow(transformStamped.transform.translation.y, 2));
     publisher_->publish(msg);
