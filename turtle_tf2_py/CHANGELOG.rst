@@ -2,8 +2,8 @@
 Changelog for package turtle_tf2_py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.3.2 (2021-08-09)
+------------------
 * Add fixed and dynamic frame broadcaster nodes (`#40 <https://github.com/ros/geometry_tutorials/issues/40>`_)
   Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
 * Add target frame parameter to the listener node (`#41 <https://github.com/ros/geometry_tutorials/issues/41>`_)
