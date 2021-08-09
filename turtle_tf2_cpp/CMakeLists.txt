@@ -46,7 +46,8 @@ install(TARGETS
   static_turtle_tf2_broadcaster
   turtle_tf2_broadcaster
   turtle_tf2_listener
-  DESTINATION lib/${PROJECT_NAME})
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 install(DIRECTORY
   launch
