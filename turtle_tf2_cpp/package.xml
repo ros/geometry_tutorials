@@ -14,13 +14,13 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
   
-  <build_depend>geometry_msgs</build_depend>
-  <build_depend>launch</build_depend>
-  <build_depend>launch_ros</build_depend>
-  <build_depend>rclcpp</build_depend>
-  <build_depend>tf2</build_depend>
-  <build_depend>tf2_ros</build_depend>
-  <build_depend>turtlesim</build_depend>
+  <depend>geometry_msgs</depend>
+  <depend>launch</depend>
+  <depend>launch_ros</depend>
+  <depend>rclcpp</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>turtlesim</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
