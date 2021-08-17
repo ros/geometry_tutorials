@@ -99,8 +99,9 @@ private:
 
     if (!transform_available_) {
       const auto timeout_ms_ = 100ms;
-      while(!tf_buffer_->canTransform(toFrameRel, fromFrameRel, tf2::TimePointZero, 0ms) 
-            && rclcpp::ok()) {
+      while (!tf_buffer_->canTransform(toFrameRel, fromFrameRel, tf2::TimePointZero, 0ms) &&
+        rclcpp::ok())
+      {
         RCLCPP_INFO(
           get_logger(), "waiting %ld ms for %s->%s transform to become available",
           timeout_ms_.count(), toFrameRel.c_str(), fromFrameRel.c_str());
