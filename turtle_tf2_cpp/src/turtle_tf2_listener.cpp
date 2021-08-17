@@ -107,7 +107,9 @@ private:
       }
       RCLCPP_INFO(get_logger(), "transform available");
       transform_available_ = true;
-    } else {
+    } 
+    
+    if (transform_available_) {
       geometry_msgs::msg::TransformStamped transformStamped;
 
       // Look up for the transformation between target_frame and turtle2 frames
@@ -116,7 +118,7 @@ private:
         transformStamped = tf_buffer_->lookupTransform(
           toFrameRel, fromFrameRel,
           tf2::TimePointZero,
-          100ms);
+          0ms);
       } catch (tf2::LookupException & ex) {
         RCLCPP_INFO(this->get_logger(), "transform not ready");
         return;
