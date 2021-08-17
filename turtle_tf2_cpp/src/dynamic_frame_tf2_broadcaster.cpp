@@ -21,6 +21,8 @@
 
 using namespace std::chrono_literals;
 
+const double PI = 3.141592653589793238463;
+
 class DynamicFrameBroadcaster : public rclcpp::Node
 {
 public:
@@ -38,8 +40,7 @@ private:
     geometry_msgs::msg::TransformStamped t;
 
     rclcpp::Time now = this->now();
-    double pi = 2 * acos(0.0);
-    double x = now.seconds() * pi;
+    double x = now.seconds() * PI;
 
     rclcpp::Time stamp;
     t.header.stamp = stamp;
