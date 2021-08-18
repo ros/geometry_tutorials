@@ -32,11 +32,10 @@ class FrameListener : public rclcpp::Node
 {
 public:
   FrameListener()
-  : Node("turtle_tf2_frame_listener")
+  : Node("turtle_tf2_frame_listener"),
+    turtle_spawned_(false),
+    transform_available_(false)
   {
-    turtle_spawned_ = false;
-    transform_available_ = false;
-
     // Declare and acquire `target_frame` parameter
     this->declare_parameter<std::string>("target_frame", "turtle1");
     this->get_parameter("target_frame", target_frame_);
@@ -70,7 +69,6 @@ private:
     if (!turtle_spawned_) {
       // Check if the service is available
       while (!spawner_->wait_for_service(1s)) {
-        // replace if with try
         if (!rclcpp::ok()) {
           RCLCPP_ERROR(
             this->get_logger(),
@@ -103,11 +101,13 @@ private:
         rclcpp::ok())
       {
         RCLCPP_INFO(
-          get_logger(), "waiting %ld ms for %s->%s transform to become available",
+          get_logger(), "Waiting %ld ms for %s->%s transform to become available",
           timeout_ms_.count(), toFrameRel.c_str(), fromFrameRel.c_str());
         std::this_thread::sleep_for(timeout_ms_);
       }
-      RCLCPP_INFO(get_logger(), "transform available");
+      RCLCPP_INFO(
+        get_logger(), "Transform %s->%s available",
+        toFrameRel.c_str(), fromFrameRel.c_str());
       transform_available_ = true;
     }
 
@@ -121,8 +121,8 @@ private:
           toFrameRel, fromFrameRel,
           tf2::TimePointZero,
           0ms);
-      } catch (tf2::LookupException & ex) {
-        RCLCPP_INFO(this->get_logger(), "transform not ready");
+      } catch (tf2::LookupException &) {
+        RCLCPP_INFO(this->get_logger(), "Transform not ready");
         return;
       }
 
@@ -143,14 +143,13 @@ private:
   }
   bool turtle_spawned_;
   bool transform_available_;
-  rclcpp::Client<turtlesim::srv::Spawn>::SharedPtr spawner_;
-  rclcpp::TimerBase::SharedPtr timer_;
-  rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr publisher_;
-  std::shared_ptr<tf2_ros::TransformListener> transform_listener_;
+  rclcpp::Client<turtlesim::srv::Spawn>::SharedPtr spawner_{nullptr};
+  rclcpp::TimerBase::SharedPtr timer_{nullptr};
+  rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr publisher_{nullptr};
+  std::shared_ptr<tf2_ros::TransformListener> transform_listener_{nullptr};
   std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
   std::string target_frame_;
 };
-
 
 int main(int argc, char * argv[])
 {
