@@ -74,7 +74,8 @@ private:
             this->get_logger(),
             "Interrupted while waiting for the service. Exiting."
           );
-          continue;
+          timer_->cancel();
+          return;
         }
         RCLCPP_INFO(
           this->get_logger(),
