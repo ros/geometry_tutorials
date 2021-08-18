@@ -84,15 +84,13 @@ private:
       result_ = spawner_->async_send_request(request);
       service_called_ = true;
       return;
-    }
-    else if (service_called_ && !turtle_spawned_) {
+    } else if (service_called_ && !turtle_spawned_) {
       RCLCPP_INFO(this->get_logger(), "Successfully spawned %s", result_.get()->name.c_str());
       turtle_spawned_ = true;
     }
 
     if (!transform_available_) {
-      if (!tf_buffer_->canTransform(toFrameRel, fromFrameRel, tf2::TimePointZero, 0ms))
-      {
+      if (!tf_buffer_->canTransform(toFrameRel, fromFrameRel, tf2::TimePointZero, 0ms)) {
         return;
       }
       RCLCPP_INFO(
