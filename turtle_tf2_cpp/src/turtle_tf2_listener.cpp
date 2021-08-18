@@ -34,7 +34,8 @@ public:
   FrameListener()
   : Node("turtle_tf2_frame_listener"),
     turtle_spawned_(false),
-    transform_available_(false)
+    transform_available_(false),
+    service_called_(false)
   {
     // Declare and acquire `target_frame` parameter
     this->declare_parameter<std::string>("target_frame", "turtle1");
@@ -66,21 +67,10 @@ private:
     std::string fromFrameRel = target_frame_.c_str();
     std::string toFrameRel = "turtle2";
 
-    if (!turtle_spawned_) {
-      // Check if the service is available
-      while (!spawner_->wait_for_service(1s)) {
-        if (!rclcpp::ok()) {
-          RCLCPP_ERROR(
-            this->get_logger(),
-            "Interrupted while waiting for the service. Exiting."
-          );
-          timer_->cancel();
-          return;
-        }
-        RCLCPP_INFO(
-          this->get_logger(),
-          "Service not available, waiting again..."
-        );
+    if (!service_called_) {
+      // Check if the service is ready
+      if (!spawner_->service_is_ready()) {
+        return;
       }
 
       // Initialize request with turtle name and coordinates
@@ -91,20 +81,19 @@ private:
       request->theta = 0.0;
       request->name = "turtle2";
       // Call request
-      auto result = spawner_->async_send_request(request);
-
+      result_ = spawner_->async_send_request(request);
+      service_called_ = true;
+      return;
+    }
+    else if (service_called_ && !turtle_spawned_) {
+      RCLCPP_INFO(this->get_logger(), "Successfully spawned %s", result_.get()->name.c_str());
       turtle_spawned_ = true;
     }
 
     if (!transform_available_) {
-      const auto timeout_ms_ = 100ms;
-      while (!tf_buffer_->canTransform(toFrameRel, fromFrameRel, tf2::TimePointZero, 0ms) &&
-        rclcpp::ok())
+      if (!tf_buffer_->canTransform(toFrameRel, fromFrameRel, tf2::TimePointZero, 0ms))
       {
-        RCLCPP_INFO(
-          get_logger(), "Waiting %ld ms for %s->%s transform to become available",
-          timeout_ms_.count(), toFrameRel.c_str(), fromFrameRel.c_str());
-        std::this_thread::sleep_for(timeout_ms_);
+        return;
       }
       RCLCPP_INFO(
         get_logger(), "Transform %s->%s available",
@@ -144,6 +133,8 @@ private:
   }
   bool turtle_spawned_;
   bool transform_available_;
+  bool service_called_;
+  rclcpp::Client<turtlesim::srv::Spawn>::SharedFuture result_;
   rclcpp::Client<turtlesim::srv::Spawn>::SharedPtr spawner_{nullptr};
   rclcpp::TimerBase::SharedPtr timer_{nullptr};
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr publisher_{nullptr};
