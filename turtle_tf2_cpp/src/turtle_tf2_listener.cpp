@@ -117,7 +117,6 @@ private:
       pow(transformStamped.transform.translation.y, 2));
 
     publisher_->publish(msg);
-  
   }
   // Boolean values to store the information
   // if the service for spawning turtle is available
