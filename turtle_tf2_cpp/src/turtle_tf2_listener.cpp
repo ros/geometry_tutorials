@@ -33,9 +33,9 @@ class FrameListener : public rclcpp::Node
 public:
   FrameListener()
   : Node("turtle_tf2_frame_listener"),
+    service_called_(false),
     turtle_spawned_(false),
-    transform_available_(false),
-    service_called_(false)
+    transform_available_(false)
   {
     // Declare and acquire `target_frame` parameter
     this->declare_parameter<std::string>("target_frame", "turtle1");
@@ -90,7 +90,10 @@ private:
     }
 
     if (!transform_available_) {
-      if (!tf_buffer_->canTransform(toFrameRel, fromFrameRel, tf2::TimePointZero, 0ms)) {
+      if (!tf_buffer_->canTransform(toFrameRel, fromFrameRel, tf2::TimePointZero, 50ms)) {
+        RCLCPP_INFO(
+          this->get_logger(), "Could not transform %s to %s. Repeating...",
+          toFrameRel.c_str(), fromFrameRel.c_str());
         return;
       }
       RCLCPP_INFO(
@@ -108,9 +111,11 @@ private:
         transformStamped = tf_buffer_->lookupTransform(
           toFrameRel, fromFrameRel,
           tf2::TimePointZero,
-          0ms);
-      } catch (tf2::LookupException &) {
-        RCLCPP_INFO(this->get_logger(), "Transform not ready");
+          50ms);
+      } catch (tf2::TransformException &ex) {
+        RCLCPP_INFO(
+          this->get_logger(), "Could not transform %s to %s: %s",
+          toFrameRel.c_str(), fromFrameRel.c_str(), ex.what());
         return;
       }
 
