@@ -34,8 +34,7 @@ public:
   FrameListener()
   : Node("turtle_tf2_frame_listener"),
     service_called_(false),
-    turtle_spawned_(false),
-    transform_available_(false)
+    turtle_spawned_(false)
   {
     // Declare and acquire `target_frame` parameter
     this->declare_parameter<std::string>("target_frame", "turtle1");
@@ -89,58 +88,42 @@ private:
       turtle_spawned_ = true;
     }
 
-    if (!transform_available_) {
-      if (!tf_buffer_->canTransform(toFrameRel, fromFrameRel, tf2::TimePointZero, 50ms)) {
-        RCLCPP_INFO(
-          this->get_logger(), "Could not transform %s to %s. Repeating...",
-          toFrameRel.c_str(), fromFrameRel.c_str());
-        return;
-      }
+    geometry_msgs::msg::TransformStamped transformStamped;
+
+    // Look up for the transformation between target_frame and turtle2 frames
+    // and send velocity commands for turtle2 to reach target_frame
+    try {
+      transformStamped = tf_buffer_->lookupTransform(
+        toFrameRel, fromFrameRel,
+        tf2::TimePointZero,
+        50ms);
+    } catch (tf2::TransformException & ex) {
       RCLCPP_INFO(
-        get_logger(), "Transform %s->%s available",
-        toFrameRel.c_str(), fromFrameRel.c_str());
-      transform_available_ = true;
+        this->get_logger(), "Could not transform %s to %s: %s",
+        toFrameRel.c_str(), fromFrameRel.c_str(), ex.what());
+      return;
     }
 
-    if (transform_available_) {
-      geometry_msgs::msg::TransformStamped transformStamped;
+    geometry_msgs::msg::Twist msg;
 
-      // Look up for the transformation between target_frame and turtle2 frames
-      // and send velocity commands for turtle2 to reach target_frame
-      try {
-        transformStamped = tf_buffer_->lookupTransform(
-          toFrameRel, fromFrameRel,
-          tf2::TimePointZero,
-          50ms);
-      } catch (tf2::TransformException & ex) {
-        RCLCPP_INFO(
-          this->get_logger(), "Could not transform %s to %s: %s",
-          toFrameRel.c_str(), fromFrameRel.c_str(), ex.what());
-        return;
-      }
+    static const double scaleRotationRate = 1.0;
+    msg.angular.z = scaleRotationRate * atan2(
+      transformStamped.transform.translation.y,
+      transformStamped.transform.translation.x);
 
-      geometry_msgs::msg::Twist msg;
+    static const double scaleForwardSpeed = 0.5;
+    msg.linear.x = scaleForwardSpeed * sqrt(
+      pow(transformStamped.transform.translation.x, 2) +
+      pow(transformStamped.transform.translation.y, 2));
 
-      static const double scaleRotationRate = 1.0;
-      msg.angular.z = scaleRotationRate * atan2(
-        transformStamped.transform.translation.y,
-        transformStamped.transform.translation.x);
-
-      static const double scaleForwardSpeed = 0.5;
-      msg.linear.x = scaleForwardSpeed * sqrt(
-        pow(transformStamped.transform.translation.x, 2) +
-        pow(transformStamped.transform.translation.y, 2));
-
-      publisher_->publish(msg);
-    }
+    publisher_->publish(msg);
+  
   }
   // Boolean values to store the information
   // if the service for spawning turtle is available
   bool service_called_;
   // if the turtle was successfully spawned
   bool turtle_spawned_;
-  // if the transform between defined frames is available
-  bool transform_available_;
   rclcpp::Client<turtlesim::srv::Spawn>::SharedFuture result_;
   rclcpp::Client<turtlesim::srv::Spawn>::SharedPtr spawner_{nullptr};
   rclcpp::TimerBase::SharedPtr timer_{nullptr};
