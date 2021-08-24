@@ -129,9 +129,13 @@ private:
       publisher_->publish(msg);
     }
   }
-  bool turtle_spawned_;
-  bool transform_available_;
+  // Boolean values to store the information
+  // if the service for spawning turtle is available
   bool service_called_;
+  // if the turtle was successfully spawned
+  bool turtle_spawned_;
+  // if the transform between defined frames is available
+  bool transform_available_;
   rclcpp::Client<turtlesim::srv::Spawn>::SharedFuture result_;
   rclcpp::Client<turtlesim::srv::Spawn>::SharedPtr spawner_{nullptr};
   rclcpp::TimerBase::SharedPtr timer_{nullptr};
