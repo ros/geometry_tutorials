@@ -77,38 +77,38 @@ class FrameListener(Node):
             self.result = self.spawner.call_async(request)
             self.service_called = True
             return
-        elif self.service_called and not self.turtle_spawned:
+        elif self.service_called and not self.turtle_spawned and self.result.done():
             self.get_logger().info(
                 f'Successfully spawned {self.result.result().name}')
             self.turtle_spawned = True
 
-        # Look up for the transformation between target_frame and turtle2 frames
-        # and send velocity commands for turtle2 to reach target_frame
-        try:
-            # now = rclpy.time.Time()
-            now = self.get_clock().now()
-            trans = self.tf_buffer.lookup_transform(
-                to_frame_rel,
-                from_frame_rel,
-                now,
-                timeout=Duration(seconds=1.0))
-        except TransformException as ex:
-            self.get_logger().info(
-                f'Could not transform {to_frame_rel} to {from_frame_rel}: {ex}')
-            return
+        if self.turtle_spawned:
+            # Look up for the transformation between target_frame and turtle2 frames
+            # and send velocity commands for turtle2 to reach target_frame
+            try:
+                now = rclpy.time.Time()
+                trans = self.tf_buffer.lookup_transform(
+                    to_frame_rel,
+                    from_frame_rel,
+                    now,
+                    timeout=Duration(seconds=1.0))
+            except TransformException as ex:
+                self.get_logger().info(
+                    f'Could not transform {to_frame_rel} to {from_frame_rel}: {ex}')
+                return
 
-        msg = Twist()
-        scale_rotation_rate = 1.0
-        msg.angular.z = scale_rotation_rate * math.atan2(
-            trans.transform.translation.y,
-            trans.transform.translation.x)
+            msg = Twist()
+            scale_rotation_rate = 1.0
+            msg.angular.z = scale_rotation_rate * math.atan2(
+                trans.transform.translation.y,
+                trans.transform.translation.x)
 
-        scale_forward_speed = 0.5
-        msg.linear.x = scale_forward_speed * math.sqrt(
-            trans.transform.translation.x ** 2 +
-            trans.transform.translation.y ** 2)
+            scale_forward_speed = 0.5
+            msg.linear.x = scale_forward_speed * math.sqrt(
+                trans.transform.translation.x ** 2 +
+                trans.transform.translation.y ** 2)
 
-        self.publisher.publish(msg)
+            self.publisher.publish(msg)
 
 
 def main():
