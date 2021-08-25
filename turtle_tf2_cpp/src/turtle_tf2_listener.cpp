@@ -80,9 +80,17 @@ private:
       request->y = 2.0;
       request->theta = 0.0;
       request->name = "turtle2";
+
       // Call request
-      result_ = spawner_->async_send_request(request);
-      service_called_ = true;
+      using ServiceResponseFuture =
+        rclcpp::Client<turtlesim::srv::Spawn>::SharedFuture;
+      auto response_received_callback = [this](ServiceResponseFuture future) {
+          auto result = future.get();
+          if (strcmp(result->name.c_str(), "turtle2") == 0) {
+            service_called_ = true;
+          }
+        };
+      result_ = spawner_->async_send_request(request, response_received_callback);
       return;
     } else if (service_called_ && !turtle_spawned_) {
       RCLCPP_INFO(this->get_logger(), "Successfully spawned %s", result_.get()->name.c_str());
