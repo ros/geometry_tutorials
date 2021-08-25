@@ -50,9 +50,9 @@ public:
   }
 
 private:
-  void handle_turtle_pose(const std::shared_ptr<turtlesim::msg::Pose> msg) const
+  void handle_turtle_pose(const std::shared_ptr<turtlesim::msg::Pose> msg)
   {
-    rclcpp::Time now;
+    rclcpp::Time now = this->get_clock()->now();
     geometry_msgs::msg::TransformStamped t;
 
     // Read message content and assign it to
