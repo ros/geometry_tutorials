@@ -17,7 +17,6 @@ import math
 from geometry_msgs.msg import Twist
 
 import rclpy
-from rclpy.duration import Duration
 from rclpy.node import Node
 
 from tf2_ros import TransformException
@@ -90,8 +89,7 @@ class FrameListener(Node):
                 trans = self.tf_buffer.lookup_transform(
                     to_frame_rel,
                     from_frame_rel,
-                    now,
-                    timeout=Duration(seconds=1.0))
+                    now)
             except TransformException as ex:
                 self.get_logger().info(
                     f'Could not transform {to_frame_rel} to {from_frame_rel}: {ex}')
