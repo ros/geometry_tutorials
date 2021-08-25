@@ -34,6 +34,9 @@ class FramePublisher(Node):
         self.turtlename = self.get_parameter(
             'turtlename').get_parameter_value().string_value
 
+        # Initialize the transform broadcaster
+        self.br = TransformBroadcaster(self)
+
         # Subscribe to a turtle{1}{2}/pose topic and call handle_turtle_pose
         # callback function on each message
         self.subscription = self.create_subscription(
@@ -44,8 +47,6 @@ class FramePublisher(Node):
         self.subscription
 
     def handle_turtle_pose(self, msg):
-        # Initialize the transform broadcaster
-        br = TransformBroadcaster(self)
         t = TransformStamped()
 
         # Read message content and assign it to
@@ -70,7 +71,7 @@ class FramePublisher(Node):
         t.transform.rotation.w = q[3]
 
         # Send the transformation
-        br.sendTransform(t)
+        self.br.sendTransform(t)
 
 
 def main():
