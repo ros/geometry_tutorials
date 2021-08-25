@@ -69,6 +69,7 @@ private:
     if (!service_called_) {
       // Check if the service is ready
       if (!spawner_->service_is_ready()) {
+        RCLCPP_INFO(this->get_logger(), "Service is not ready");
         return;
       }
 
@@ -88,34 +89,36 @@ private:
       turtle_spawned_ = true;
     }
 
-    geometry_msgs::msg::TransformStamped transformStamped;
+    if (turtle_spawned_) {
+      geometry_msgs::msg::TransformStamped transformStamped;
 
-    // Look up for the transformation between target_frame and turtle2 frames
-    // and send velocity commands for turtle2 to reach target_frame
-    try {
-      transformStamped = tf_buffer_->lookupTransform(
-        toFrameRel, fromFrameRel,
-        tf2::TimePointZero);
-    } catch (tf2::TransformException & ex) {
-      RCLCPP_INFO(
-        this->get_logger(), "Could not transform %s to %s: %s",
-        toFrameRel.c_str(), fromFrameRel.c_str(), ex.what());
-      return;
+      // Look up for the transformation between target_frame and turtle2 frames
+      // and send velocity commands for turtle2 to reach target_frame
+      try {
+        transformStamped = tf_buffer_->lookupTransform(
+          toFrameRel, fromFrameRel,
+          tf2::TimePointZero);
+      } catch (tf2::TransformException & ex) {
+        RCLCPP_INFO(
+          this->get_logger(), "Could not transform %s to %s: %s",
+          toFrameRel.c_str(), fromFrameRel.c_str(), ex.what());
+        return;
+      }
+
+      geometry_msgs::msg::Twist msg;
+
+      static const double scaleRotationRate = 1.0;
+      msg.angular.z = scaleRotationRate * atan2(
+        transformStamped.transform.translation.y,
+        transformStamped.transform.translation.x);
+
+      static const double scaleForwardSpeed = 0.5;
+      msg.linear.x = scaleForwardSpeed * sqrt(
+        pow(transformStamped.transform.translation.x, 2) +
+        pow(transformStamped.transform.translation.y, 2));
+
+      publisher_->publish(msg);
     }
-
-    geometry_msgs::msg::Twist msg;
-
-    static const double scaleRotationRate = 1.0;
-    msg.angular.z = scaleRotationRate * atan2(
-      transformStamped.transform.translation.y,
-      transformStamped.transform.translation.x);
-
-    static const double scaleForwardSpeed = 0.5;
-    msg.linear.x = scaleForwardSpeed * sqrt(
-      pow(transformStamped.transform.translation.x, 2) +
-      pow(transformStamped.transform.translation.y, 2));
-
-    publisher_->publish(msg);
   }
   // Boolean values to store the information
   // if the service for spawning turtle is available
