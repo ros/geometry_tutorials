@@ -92,9 +92,12 @@ private:
         };
       result_ = spawner_->async_send_request(request, response_received_callback);
       return;
-    } else if (turtle_spawning_service_ready_ && !turtle_spawned_) {
+    }
+    
+    if (turtle_spawning_service_ready_ && !turtle_spawned_) {
       RCLCPP_INFO(this->get_logger(), "Successfully spawned %s", result_.get()->name.c_str());
       turtle_spawned_ = true;
+      return;
     }
 
     if (turtle_spawned_) {
