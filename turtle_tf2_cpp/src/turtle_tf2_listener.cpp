@@ -33,7 +33,7 @@ class FrameListener : public rclcpp::Node
 public:
   FrameListener()
   : Node("turtle_tf2_frame_listener"),
-    service_called_(false),
+    turtle_spawning_service_ready_(false),
     turtle_spawned_(false)
   {
     // Declare and acquire `target_frame` parameter
@@ -66,7 +66,7 @@ private:
     std::string fromFrameRel = target_frame_.c_str();
     std::string toFrameRel = "turtle2";
 
-    if (!service_called_) {
+    if (!turtle_spawning_service_ready_) {
       // Check if the service is ready
       if (!spawner_->service_is_ready()) {
         RCLCPP_INFO(this->get_logger(), "Service is not ready");
@@ -87,12 +87,12 @@ private:
       auto response_received_callback = [this](ServiceResponseFuture future) {
           auto result = future.get();
           if (strcmp(result->name.c_str(), "turtle2") == 0) {
-            service_called_ = true;
+            turtle_spawning_service_ready_ = true;
           }
         };
       result_ = spawner_->async_send_request(request, response_received_callback);
       return;
-    } else if (service_called_ && !turtle_spawned_) {
+    } else if (turtle_spawning_service_ready_ && !turtle_spawned_) {
       RCLCPP_INFO(this->get_logger(), "Successfully spawned %s", result_.get()->name.c_str());
       turtle_spawned_ = true;
     }
@@ -130,7 +130,7 @@ private:
   }
   // Boolean values to store the information
   // if the service for spawning turtle is available
-  bool service_called_;
+  bool turtle_spawning_service_ready_;
   // if the turtle was successfully spawned
   bool turtle_spawned_;
   rclcpp::Client<turtlesim::srv::Spawn>::SharedFuture result_;
