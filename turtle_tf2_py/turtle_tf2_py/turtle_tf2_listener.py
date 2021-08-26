@@ -43,7 +43,7 @@ class FrameListener(Node):
         self.spawner = self.create_client(Spawn, 'spawn')
         # Boolean values to store the information
         # if the service for spawning turtle is available
-        self.service_called = False
+        self.turtle_spawning_service_ready = False
         # if the turtle was successfully spawned
         self.turtle_spawned = False
 
@@ -59,7 +59,7 @@ class FrameListener(Node):
         from_frame_rel = self.target_frame
         to_frame_rel = 'turtle2'
 
-        if not self.service_called:
+        if not self.turtle_spawning_service_ready:
             if not self.spawner.service_is_ready():
                 # Check if the service is ready
                 self.get_logger().info('Service is not ready')
@@ -74,9 +74,9 @@ class FrameListener(Node):
             request.theta = float(0)
             # Call request
             self.result = self.spawner.call_async(request)
-            self.service_called = True
+            self.turtle_spawning_service_ready = True
             return
-        elif self.service_called and not self.turtle_spawned and self.result.done():
+        elif self.turtle_spawning_service_ready and not self.turtle_spawned and self.result.done():
             self.get_logger().info(
                 f'Successfully spawned {self.result.result().name}')
             self.turtle_spawned = True
