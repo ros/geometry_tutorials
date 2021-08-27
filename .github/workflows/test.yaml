@@ -1,0 +1,34 @@
+name: Test geometry_tutorials
+on:
+  pull_request:
+  push:
+    branches:
+      - ros2
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    container:
+      image: rostooling/setup-ros-docker:ubuntu-focal-latest
+    steps:
+    - name: Build and run tests
+      id: action-ros-ci
+      uses: ros-tooling/action-ros-ci@v0.2
+      with:
+        package-name: |
+          turtle_tf2_py
+          turtle_tf2_cpp
+        target-ros2-distro: rolling
+        vcs-repo-file-url: https://raw.githubusercontent.com/ros2/ros2/master/ros2.repos
+        colcon-defaults: |
+          {
+            "build": {
+              "cmake-args": [
+                "-DCMAKE_CXX_FLAGS=\"-Werror\""
+              ]
+            },
+            "test": {
+              "ctest-args": ["-LE", "xfail"],
+              "pytest-args": ["-m", "not xfail"]
+            }
+          }
