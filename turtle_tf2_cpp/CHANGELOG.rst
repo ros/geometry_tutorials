@@ -2,8 +2,8 @@
 Changelog for package turtle_tf2_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.3.3 (2021-08-27)
+------------------
 * update listener node (`#53 <https://github.com/ros/geometry_tutorials/issues/53>`_)
 * assign now value to the this->get_clock()->now() (`#54 <https://github.com/ros/geometry_tutorials/issues/54>`_)
 * Fixed and dynamic frame broacaster nodes and launch files C++ (`#52 <https://github.com/ros/geometry_tutorials/issues/52>`_)
