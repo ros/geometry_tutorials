@@ -2,6 +2,13 @@
 Changelog for package turtle_tf2_py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* update python tf2 listener node (`#58 <https://github.com/ros/geometry_tutorials/issues/58>`_)
+* restructure code in static transform broadcaster (`#57 <https://github.com/ros/geometry_tutorials/issues/57>`_)
+* move TransformBroadcaster to the init call to resolve memory leak (`#56 <https://github.com/ros/geometry_tutorials/issues/56>`_)
+* Contributors: kurshakuz
+
 0.3.2 (2021-08-09)
 ------------------
 * Add fixed and dynamic frame broadcaster nodes (`#40 <https://github.com/ros/geometry_tutorials/issues/40>`_)

@@ -2,6 +2,16 @@
 Changelog for package turtle_tf2_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* update listener node (`#53 <https://github.com/ros/geometry_tutorials/issues/53>`_)
+* assign now value to the this->get_clock()->now() (`#54 <https://github.com/ros/geometry_tutorials/issues/54>`_)
+* Fixed and dynamic frame broacaster nodes and launch files C++ (`#52 <https://github.com/ros/geometry_tutorials/issues/52>`_)
+* update copyright year (`#51 <https://github.com/ros/geometry_tutorials/issues/51>`_)
+* Update tags in the package.xml (`#50 <https://github.com/ros/geometry_tutorials/issues/50>`_)
+* replace exec_depend to build_depend in package.xml (`#49 <https://github.com/ros/geometry_tutorials/issues/49>`_)
+* Contributors: kurshakuz
+
 0.3.2 (2021-08-09)
 ------------------
 * turtle_tf2_cpp tutorial package (`#44 <https://github.com/ros/geometry_tutorials/issues/44>`_)
