@@ -19,7 +19,6 @@ jobs:
           turtle_tf2_py
           turtle_tf2_cpp
         target-ros2-distro: rolling
-        vcs-repo-file-url: https://raw.githubusercontent.com/ros2/ros2/master/ros2.repos
         colcon-defaults: |
           {
             "build": {
