@@ -35,7 +35,7 @@ public:
 private:
   void broadcast_timer_callback()
   {
-    rclcpp::Time now;
+    rclcpp::Time now = this->get_clock()->now();
     geometry_msgs::msg::TransformStamped t;
 
     t.header.stamp = now;
