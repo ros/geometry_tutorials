@@ -37,7 +37,7 @@ public:
 private:
   void make_transforms(char * transformation[])
   {
-    rclcpp::Time now;
+    rclcpp::Time now = this->get_clock()->now();
     geometry_msgs::msg::TransformStamped t;
 
     t.header.stamp = now;
