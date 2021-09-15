@@ -72,7 +72,8 @@ private:
         point_out.point.y,
         point_out.point.z);
     } catch (tf2::TransformException & ex) {
-      RCLCPP_WARN(this->get_logger(), "Failure %s\n", ex.what());    // Print exception which was caught
+      RCLCPP_WARN(
+        this->get_logger(), "Failure %s\n", ex.what());    // Print exception which was caught
     }
   }
   std::string target_frame_;
