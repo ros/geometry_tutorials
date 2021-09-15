@@ -1,4 +1,4 @@
-# Copyright 2015 Open Source Robotics Foundation, Inc.
+# Copyright 2021 Open Source Robotics Foundation, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,7 +39,6 @@ class PointPublisher(Node):
 
         self.vel_pub = self.create_publisher(Twist, '/turtle3/cmd_vel', 1)
         self.sub = self.create_subscription(Pose, '/turtle3/pose', self.handle_turtle_pose, 1)
-        self.sub
         self.pub = self.create_publisher(PointStamped, '/turtle3/turtle_point_stamped', 1)
 
     def handle_turtle_pose(self, msg):
