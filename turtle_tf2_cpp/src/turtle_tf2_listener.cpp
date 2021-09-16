@@ -97,7 +97,7 @@ private:
 
         publisher_->publish(msg);
       } else {
-        RCLCPP_INFO(this->get_logger(), "Successfully spawned %s", result_.get()->name.c_str());
+        RCLCPP_INFO(this->get_logger(), "Successfully spawned");
         turtle_spawned_ = true;
       }
     } else {
@@ -122,7 +122,7 @@ private:
               RCLCPP_ERROR(this->get_logger(), "Service callback result mismatch");
             }
           };
-        result_ = spawner_->async_send_request(request, response_received_callback);
+        auto result = spawner_->async_send_request(request, response_received_callback);
       } else {
         RCLCPP_INFO(this->get_logger(), "Service is not ready");
       }
@@ -133,7 +133,6 @@ private:
   bool turtle_spawning_service_ready_;
   // if the turtle was successfully spawned
   bool turtle_spawned_;
-  rclcpp::Client<turtlesim::srv::Spawn>::SharedFuture result_;
   rclcpp::Client<turtlesim::srv::Spawn>::SharedPtr spawner_{nullptr};
   rclcpp::TimerBase::SharedPtr timer_{nullptr};
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr publisher_{nullptr};
