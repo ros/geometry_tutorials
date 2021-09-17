@@ -23,6 +23,13 @@ find_package(turtlesim REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(message_filters REQUIRED)
 
+find_file(TF2_CPP_HEADERS
+  NAMES tf2_geometry_msgs.hpp
+  PATHS ${tf2_geometry_msgs_INCLUDE_DIRS}
+  NO_CACHE
+  PATH_SUFFIXES tf2_geometry_msgs
+)
+
 add_executable(static_turtle_tf2_broadcaster src/static_turtle_tf2_broadcaster.cpp)
 ament_target_dependencies(
   static_turtle_tf2_broadcaster
@@ -81,6 +88,10 @@ ament_target_dependencies(
   tf2_geometry_msgs
   message_filters
 )
+
+if(EXISTS ${TF2_CPP_HEADERS})
+  target_compile_definitions(turtle_tf2_message_filter PUBLIC -DTF2_CPP_HEADERS)
+endif
 
 install(TARGETS
   static_turtle_tf2_broadcaster
