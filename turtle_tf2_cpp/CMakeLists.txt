@@ -91,7 +91,7 @@ ament_target_dependencies(
 
 if(EXISTS ${TF2_CPP_HEADERS})
   target_compile_definitions(turtle_tf2_message_filter PUBLIC -DTF2_CPP_HEADERS)
-endif
+endif()
 
 install(TARGETS
   static_turtle_tf2_broadcaster
