@@ -36,10 +36,10 @@ class PointPublisher(Node):
         self.turtle_spawned = False
         # if the topics of turtle3 can be subscribed
         self.turtle_pose_cansubscribe = False
-        
+
         self.timer = self.create_timer(1.0, self.on_timer)
 
-    def on_timer(self):   
+    def on_timer(self):
         if self.turtle_spawning_service_ready:
             if self.turtle_spawned:
                 self.turtle_pose_cansubscribe = True
