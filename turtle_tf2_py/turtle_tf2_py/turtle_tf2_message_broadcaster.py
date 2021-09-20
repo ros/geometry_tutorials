@@ -27,19 +27,49 @@ class PointPublisher(Node):
     def __init__(self):
         super().__init__('turtle_tf2_message_broadcaster')
 
-        self.client = self.create_client(Spawn, 'spawn')
-        while not self.client.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info('service not available, waiting again...')
-        request = Spawn.Request()
-        request.name = 'turtle3'
-        request.x = float(4)
-        request.y = float(2)
-        request.theta = float(0)
-        self.client.call_async(request)
+        # Create a client to spawn a turtle
+        self.spawner = self.create_client(Spawn, 'spawn')
+        # Boolean values to store the information
+        # if the service for spawning turtle is available
+        self.turtle_spawning_service_ready = False
+        # if the turtle was successfully spawned
+        self.turtle_spawned = False
+        # if the topics of turtle3 can be subscribed
+        self.turtle_pose_cansubscribe = False
+        
+        self.timer = self.create_timer(1.0, self.on_timer)
 
-        self.vel_pub = self.create_publisher(Twist, '/turtle3/cmd_vel', 1)
-        self.sub = self.create_subscription(Pose, '/turtle3/pose', self.handle_turtle_pose, 1)
-        self.pub = self.create_publisher(PointStamped, '/turtle3/turtle_point_stamped', 1)
+    def on_timer(self):   
+        if self.turtle_spawning_service_ready:
+            if self.turtle_spawned:
+                self.turtle_pose_cansubscribe = True
+            else:
+                if self.result.done():
+                    self.get_logger().info(
+                        f'Successfully spawned {self.result.result().name}')
+                    self.turtle_spawned = True
+                else:
+                    self.get_logger().info('Spawn is not finished')
+        else:
+            if self.spawner.service_is_ready():
+                # Initialize request with turtle name and coordinates
+                # Note that x, y and theta are defined as floats in turtlesim/srv/Spawn
+                request = Spawn.Request()
+                request.name = 'turtle3'
+                request.x = float(4)
+                request.y = float(2)
+                request.theta = float(0)
+                # Call request
+                self.result = self.spawner.call_async(request)
+                self.turtle_spawning_service_ready = True
+            else:
+                # Check if the service is ready
+                self.get_logger().info('Service is not ready')
+
+        if self.turtle_pose_cansubscribe:
+            self.vel_pub = self.create_publisher(Twist, 'turtle3/cmd_vel', 10)
+            self.sub = self.create_subscription(Pose, 'turtle3/pose', self.handle_turtle_pose, 10)
+            self.pub = self.create_publisher(PointStamped, 'turtle3/turtle_point_stamped', 10)
 
     def handle_turtle_pose(self, msg):
         vel_msg = Twist()
@@ -63,4 +93,5 @@ def main():
         rclpy.spin(node)
     except KeyboardInterrupt:
         pass
+
     rclpy.shutdown()

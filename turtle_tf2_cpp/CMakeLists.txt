@@ -16,12 +16,12 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(message_filters REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(tf2 REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(turtlesim REQUIRED)
-find_package(tf2_geometry_msgs REQUIRED)
-find_package(message_filters REQUIRED)
 
 find_file(TF2_CPP_HEADERS
   NAMES tf2_geometry_msgs.hpp
@@ -82,11 +82,11 @@ add_executable(turtle_tf2_message_filter src/turtle_tf2_message_filter.cpp)
 ament_target_dependencies(
   turtle_tf2_message_filter
   geometry_msgs
+  message_filters
   rclcpp
   tf2
-  tf2_ros
   tf2_geometry_msgs
-  message_filters
+  tf2_ros
 )
 
 if(EXISTS ${TF2_CPP_HEADERS})

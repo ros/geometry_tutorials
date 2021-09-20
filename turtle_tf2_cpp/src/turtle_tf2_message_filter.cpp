@@ -12,19 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/point_stamped.hpp>
+#include <message_filters/subscriber.h>
 
-#include <tf2_ros/transform_listener.h>
-#include <tf2_ros/message_filter.h>
+#include <rclcpp/rclcpp.hpp>
 #include <tf2_ros/buffer.h>
 #include <tf2_ros/create_timer_ros.h>
+#include <tf2_ros/message_filter.h>
+#include <tf2_ros/transform_listener.h>
 #ifdef TF2_CPP_HEADERS
   #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #else
   #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #endif
-#include <message_filters/subscriber.h>
 
 #include <chrono>
 #include <memory>
@@ -33,32 +33,32 @@
 using std::placeholders::_1;
 using namespace std::chrono_literals;
 
-
 class PoseDrawer : public rclcpp::Node
 {
 public:
   PoseDrawer()
   : Node("turtle_tf2_pose_drawer")
   {
-    auto node = rclcpp::Node::make_shared("tf2_ros_message_filter");
-    auto create_timer_interface = std::make_shared<tf2_ros::CreateTimerROS>(
-      node->get_node_base_interface(),
-      node->get_node_timers_interface());
-    typedef std::chrono::duration<int> seconds_type;
-    seconds_type buffer_timeout(1);
-
     // Declare and acquire `target_frame` parameter
     this->declare_parameter<std::string>("target_frame", "turtle1");
     this->get_parameter("target_frame", target_frame_);
 
-    rclcpp::Clock::SharedPtr clock = std::make_shared<rclcpp::Clock>(RCL_SYSTEM_TIME);
-    tf2_buffer_ = std::make_shared<tf2_ros::Buffer>(node->get_clock());
-    tf2_buffer_->setCreateTimerInterface(create_timer_interface);
+    typedef std::chrono::duration<int> seconds_type;
+    seconds_type buffer_timeout(10);
+
+    tf2_buffer_ = std::make_shared<tf2_ros::Buffer>(this->get_clock());
+    // set timer interface before call to waitForTransform,
+    // to avoid a tf2_ros::CreateTimerInterfaceException is thrown.
+    auto timer_interface = std::make_shared<tf2_ros::CreateTimerROS>(
+      this->get_node_base_interface(),
+      this->get_node_timers_interface());
+    tf2_buffer_->setCreateTimerInterface(timer_interface);
     tf2_listener_ =
       std::make_shared<tf2_ros::TransformListener>(*tf2_buffer_);
     point_sub_.subscribe(this, "/turtle3/turtle_point_stamped");
     tf2_filter_ = std::make_shared<tf2_ros::MessageFilter<geometry_msgs::msg::PointStamped>>(
-      point_sub_, *tf2_buffer_, target_frame_, 10, node, buffer_timeout);
+      point_sub_, *tf2_buffer_, target_frame_, 100, this->get_node_logging_interface(),
+      this->get_node_clock_interface(), buffer_timeout);
     tf2_filter_->registerCallback(&PoseDrawer::msgCallback, this);
   }
 
