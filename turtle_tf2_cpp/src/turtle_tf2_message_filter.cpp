@@ -30,7 +30,6 @@
 #include <memory>
 #include <string>
 
-using std::placeholders::_1;
 using namespace std::chrono_literals;
 
 class PoseDrawer : public rclcpp::Node
@@ -44,25 +43,25 @@ public:
     this->get_parameter("target_frame", target_frame_);
 
     typedef std::chrono::duration<int> seconds_type;
-    seconds_type buffer_timeout(10);
+    seconds_type buffer_timeout(1);
 
     tf2_buffer_ = std::make_shared<tf2_ros::Buffer>(this->get_clock());
-    // set timer interface before call to waitForTransform,
-    // to avoid a tf2_ros::CreateTimerInterfaceException is thrown.
+    // Create the timer interface before call to waitForTransform,
+    // to avoid a tf2_ros::CreateTimerInterfaceException exception
     auto timer_interface = std::make_shared<tf2_ros::CreateTimerROS>(
       this->get_node_base_interface(),
       this->get_node_timers_interface());
     tf2_buffer_->setCreateTimerInterface(timer_interface);
     tf2_listener_ =
       std::make_shared<tf2_ros::TransformListener>(*tf2_buffer_);
+
     point_sub_.subscribe(this, "/turtle3/turtle_point_stamped");
     tf2_filter_ = std::make_shared<tf2_ros::MessageFilter<geometry_msgs::msg::PointStamped>>(
       point_sub_, *tf2_buffer_, target_frame_, 100, this->get_node_logging_interface(),
       this->get_node_clock_interface(), buffer_timeout);
+    // Register a callback with tf2_ros::MessageFilter to be called when transforms are available
     tf2_filter_->registerCallback(&PoseDrawer::msgCallback, this);
   }
-
-// Callback to register with tf2_ros::MessageFilter to be called when transforms are available
 
 private:
   void msgCallback(const geometry_msgs::msg::PointStamped::SharedPtr point_ptr)
@@ -71,13 +70,14 @@ private:
     try {
       tf2_buffer_->transform(*point_ptr, point_out, target_frame_);
       RCLCPP_INFO(
-        this->get_logger(), "point of turtle 3 in frame of turtle 1 Position(x:%f y:%f z:%f)\n",
+        this->get_logger(), "Point of turtle3 in frame of turtle1: x:%f y:%f z:%f\n",
         point_out.point.x,
         point_out.point.y,
         point_out.point.z);
     } catch (tf2::TransformException & ex) {
       RCLCPP_WARN(
-        this->get_logger(), "Failure %s\n", ex.what());    // Print exception which was caught
+        // Print exception which was caught
+        this->get_logger(), "Failure %s\n", ex.what());
     }
   }
   std::string target_frame_;
