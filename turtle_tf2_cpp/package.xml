@@ -17,8 +17,10 @@
   <depend>geometry_msgs</depend>
   <depend>launch</depend>
   <depend>launch_ros</depend>
+  <depend>message_filters</depend>
   <depend>rclcpp</depend>
   <depend>tf2</depend>
+  <depend>tf2_geometry_msgs</depend>
   <depend>tf2_ros</depend>
   <depend>turtlesim</depend>
 
