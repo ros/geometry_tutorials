@@ -2,8 +2,8 @@
 Changelog for package turtle_tf2_py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.3.4 (2021-10-11)
+------------------
 * Add source code and launch file for tf2 PointStamped message publisher and listener/filter (`#62 <https://github.com/ros/geometry_tutorials/issues/62>`_)
   Add Python Code of PointStamped Messages Broadcaster Node
   Add launch File turtle_tf2_sensor_message.launch.py
