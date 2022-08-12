@@ -9,14 +9,15 @@
   <maintainer email="alejandro@openrobotics.org">Alejandro Hernández Cordero</maintainer>
   <maintainer email="audrow@openrobotics.org">Audrow Nash</maintainer>
   <license>Apache License, Version 2.0</license>
+  <license>BSD</license>
 
   <author email="abilkasov@gmail.com">Shyngyskhan Abilkassov</author>
 
   <exec_depend>geometry_msgs</exec_depend>
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
   <exec_depend>rclpy</exec_depend>
-  <exec_depend>tf_transformations</exec_depend>
   <exec_depend>tf2_ros</exec_depend>
   <exec_depend>turtlesim</exec_depend>
 
