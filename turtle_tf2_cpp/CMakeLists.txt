@@ -23,7 +23,7 @@ find_package(tf2_geometry_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(turtlesim REQUIRED)
 
-if (TARGET tf2_geometry_msgs::tf2_geometry_msgs)
+if(TARGET tf2_geometry_msgs::tf2_geometry_msgs)
   get_target_property(_include_dirs tf2_geometry_msgs::tf2_geometry_msgs INTERFACE_INCLUDE_DIRECTORIES)
 else()
   set(_include_dirs ${tf2_geometry_msgs_INCLUDE_DIRS})

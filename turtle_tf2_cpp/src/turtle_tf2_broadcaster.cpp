@@ -12,17 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <geometry_msgs/msg/transform_stamped.hpp>
-
-#include <rclcpp/rclcpp.hpp>
-#include <tf2/LinearMath/Quaternion.h>
-#include <tf2_ros/transform_broadcaster.h>
-#include <turtlesim/msg/pose.hpp>
-
+#include <functional>
 #include <memory>
+#include <sstream>
 #include <string>
 
-using std::placeholders::_1;
+#include "geometry_msgs/msg/transform_stamped.hpp"
+#include "rclcpp/rclcpp.hpp"
+#include "tf2/LinearMath/Quaternion.h"
+#include "tf2_ros/transform_broadcaster.h"
+#include "turtlesim/msg/pose.hpp"
 
 class FramePublisher : public rclcpp::Node
 {
@@ -46,7 +45,7 @@ public:
 
     subscription_ = this->create_subscription<turtlesim::msg::Pose>(
       topic_name, 10,
-      std::bind(&FramePublisher::handle_turtle_pose, this, _1));
+      std::bind(&FramePublisher::handle_turtle_pose, this, std::placeholders::_1));
   }
 
 private:

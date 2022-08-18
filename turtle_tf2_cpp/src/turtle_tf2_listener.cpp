@@ -12,20 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <geometry_msgs/msg/transform_stamped.hpp>
-#include <geometry_msgs/msg/twist.hpp>
-
-#include <rclcpp/rclcpp.hpp>
-#include <tf2/exceptions.h>
-#include <tf2_ros/transform_listener.h>
-#include <tf2_ros/buffer.h>
-#include <turtlesim/srv/spawn.hpp>
-
 #include <chrono>
+#include <functional>
 #include <memory>
 #include <string>
 
-using std::placeholders::_1;
+#include "geometry_msgs/msg/transform_stamped.hpp"
+#include "geometry_msgs/msg/twist.hpp"
+#include "rclcpp/rclcpp.hpp"
+#include "tf2/exceptions.h"
+#include "tf2_ros/transform_listener.h"
+#include "tf2_ros/buffer.h"
+#include "turtlesim/srv/spawn.hpp"
+
 using namespace std::chrono_literals;
 
 class FrameListener : public rclcpp::Node
