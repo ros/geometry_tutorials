@@ -2,6 +2,11 @@
 Changelog for package turtle_tf2_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Cleanup CI (`#70 <https://github.com/ros/geometry_tutorials/issues/70>`_)
+* Contributors: Chris Lalancette
+
 0.3.4 (2021-10-11)
 ------------------
 * Add source code and launch file for tf2 PointStamped message publisher and listener/filter (`#62 <https://github.com/ros/geometry_tutorials/issues/62>`_)

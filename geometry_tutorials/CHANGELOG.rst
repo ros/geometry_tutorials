@@ -2,6 +2,9 @@
 Changelog for package geometry_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.3.4 (2021-10-11)
 ------------------
 
