@@ -2,8 +2,8 @@
 Changelog for package turtle_tf2_py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.3.5 (2022-09-08)
+------------------
 * Remove the dependency on tf_transformations. (`#69 <https://github.com/ros/geometry_tutorials/issues/69>`_)
 * Contributors: Chris Lalancette
 
