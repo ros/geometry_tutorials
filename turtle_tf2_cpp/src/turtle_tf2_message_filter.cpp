@@ -38,8 +38,7 @@ public:
   : Node("turtle_tf2_pose_drawer")
   {
     // Declare and acquire `target_frame` parameter
-    this->declare_parameter<std::string>("target_frame", "turtle1");
-    this->get_parameter("target_frame", target_frame_);
+    target_frame_ = this->declare_parameter<std::string>("target_frame", "turtle1");
 
     typedef std::chrono::duration<int> seconds_type;
     seconds_type buffer_timeout(1);
@@ -73,7 +72,7 @@ private:
         point_out.point.x,
         point_out.point.y,
         point_out.point.z);
-    } catch (tf2::TransformException & ex) {
+    } catch (const tf2::TransformException & ex) {
       RCLCPP_WARN(
         // Print exception which was caught
         this->get_logger(), "Failure %s\n", ex.what());

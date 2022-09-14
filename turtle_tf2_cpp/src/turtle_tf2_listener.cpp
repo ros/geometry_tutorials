@@ -36,12 +36,11 @@ public:
     turtle_spawned_(false)
   {
     // Declare and acquire `target_frame` parameter
-    this->declare_parameter<std::string>("target_frame", "turtle1");
-    this->get_parameter("target_frame", target_frame_);
+    target_frame_ = this->declare_parameter<std::string>("target_frame", "turtle1");
 
     tf_buffer_ =
       std::make_unique<tf2_ros::Buffer>(this->get_clock());
-    transform_listener_ =
+    tf_listener_ =
       std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
 
     // Create a client to spawn a turtle
@@ -67,15 +66,15 @@ private:
 
     if (turtle_spawning_service_ready_) {
       if (turtle_spawned_) {
-        geometry_msgs::msg::TransformStamped transformStamped;
+        geometry_msgs::msg::TransformStamped t;
 
         // Look up for the transformation between target_frame and turtle2 frames
         // and send velocity commands for turtle2 to reach target_frame
         try {
-          transformStamped = tf_buffer_->lookupTransform(
+          t = tf_buffer_->lookupTransform(
             toFrameRel, fromFrameRel,
             tf2::TimePointZero);
-        } catch (tf2::TransformException & ex) {
+        } catch (const tf2::TransformException & ex) {
           RCLCPP_INFO(
             this->get_logger(), "Could not transform %s to %s: %s",
             toFrameRel.c_str(), fromFrameRel.c_str(), ex.what());
@@ -86,13 +85,13 @@ private:
 
         static const double scaleRotationRate = 1.0;
         msg.angular.z = scaleRotationRate * atan2(
-          transformStamped.transform.translation.y,
-          transformStamped.transform.translation.x);
+          t.transform.translation.y,
+          t.transform.translation.x);
 
         static const double scaleForwardSpeed = 0.5;
         msg.linear.x = scaleForwardSpeed * sqrt(
-          pow(transformStamped.transform.translation.x, 2) +
-          pow(transformStamped.transform.translation.y, 2));
+          pow(t.transform.translation.x, 2) +
+          pow(t.transform.translation.y, 2));
 
         publisher_->publish(msg);
       } else {
@@ -105,10 +104,10 @@ private:
         // Initialize request with turtle name and coordinates
         // Note that x, y and theta are defined as floats in turtlesim/srv/Spawn
         auto request = std::make_shared<turtlesim::srv::Spawn::Request>();
+        request->name = "turtle2";
         request->x = 4.0;
         request->y = 2.0;
         request->theta = 0.0;
-        request->name = "turtle2";
 
         // Call request
         using ServiceResponseFuture =
@@ -127,6 +126,7 @@ private:
       }
     }
   }
+
   // Boolean values to store the information
   // if the service for spawning turtle is available
   bool turtle_spawning_service_ready_;
@@ -135,7 +135,7 @@ private:
   rclcpp::Client<turtlesim::srv::Spawn>::SharedPtr spawner_{nullptr};
   rclcpp::TimerBase::SharedPtr timer_{nullptr};
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr publisher_{nullptr};
-  std::shared_ptr<tf2_ros::TransformListener> transform_listener_{nullptr};
+  std::shared_ptr<tf2_ros::TransformListener> tf_listener_{nullptr};
   std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
   std::string target_frame_;
 };

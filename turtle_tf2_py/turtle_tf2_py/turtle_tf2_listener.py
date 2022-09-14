@@ -32,9 +32,8 @@ class FrameListener(Node):
         super().__init__('turtle_tf2_frame_listener')
 
         # Declare and acquire `target_frame` parameter
-        self.declare_parameter('target_frame', 'turtle1')
-        self.target_frame = self.get_parameter(
-            'target_frame').get_parameter_value().string_value
+        self.target_frame = self.declare_parameter(
+            'target_frame', 'turtle1').get_parameter_value().string_value
 
         self.tf_buffer = Buffer()
         self.tf_listener = TransformListener(self.tf_buffer, self)
@@ -64,11 +63,10 @@ class FrameListener(Node):
                 # Look up for the transformation between target_frame and turtle2 frames
                 # and send velocity commands for turtle2 to reach target_frame
                 try:
-                    now = rclpy.time.Time()
-                    trans = self.tf_buffer.lookup_transform(
+                    t = self.tf_buffer.lookup_transform(
                         to_frame_rel,
                         from_frame_rel,
-                        now)
+                        rclpy.time.Time())
                 except TransformException as ex:
                     self.get_logger().info(
                         f'Could not transform {to_frame_rel} to {from_frame_rel}: {ex}')
@@ -77,13 +75,13 @@ class FrameListener(Node):
                 msg = Twist()
                 scale_rotation_rate = 1.0
                 msg.angular.z = scale_rotation_rate * math.atan2(
-                    trans.transform.translation.y,
-                    trans.transform.translation.x)
+                    t.transform.translation.y,
+                    t.transform.translation.x)
 
                 scale_forward_speed = 0.5
                 msg.linear.x = scale_forward_speed * math.sqrt(
-                    trans.transform.translation.x ** 2 +
-                    trans.transform.translation.y ** 2)
+                    t.transform.translation.x ** 2 +
+                    t.transform.translation.y ** 2)
 
                 self.publisher.publish(msg)
             else:
@@ -99,9 +97,9 @@ class FrameListener(Node):
                 # Note that x, y and theta are defined as floats in turtlesim/srv/Spawn
                 request = Spawn.Request()
                 request.name = 'turtle2'
-                request.x = float(4)
-                request.y = float(2)
-                request.theta = float(0)
+                request.x = 4.0
+                request.y = 2.0
+                request.theta = 0.0
                 # Call request
                 self.result = self.spawner.call_async(request)
                 self.turtle_spawning_service_ready = True

@@ -30,7 +30,7 @@ public:
   DynamicFrameBroadcaster()
   : Node("dynamic_frame_tf2_broadcaster")
   {
-    tf_publisher_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
+    tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
     timer_ = this->create_wall_timer(
       100ms, std::bind(&DynamicFrameBroadcaster::broadcast_timer_callback, this));
   }
@@ -40,8 +40,8 @@ private:
   {
     rclcpp::Time now = this->get_clock()->now();
     double x = now.seconds() * PI;
-    geometry_msgs::msg::TransformStamped t;
 
+    geometry_msgs::msg::TransformStamped t;
     t.header.stamp = now;
     t.header.frame_id = "turtle1";
     t.child_frame_id = "carrot1";
@@ -53,10 +53,11 @@ private:
     t.transform.rotation.z = 0.0;
     t.transform.rotation.w = 1.0;
 
-    tf_publisher_->sendTransform(t);
+    tf_broadcaster_->sendTransform(t);
   }
+
   rclcpp::TimerBase::SharedPtr timer_;
-  std::shared_ptr<tf2_ros::TransformBroadcaster> tf_publisher_;
+  std::shared_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
 };
 
 int main(int argc, char * argv[])
