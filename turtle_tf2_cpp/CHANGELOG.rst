@@ -2,8 +2,8 @@
 Changelog for package turtle_tf2_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.3.6 (2022-09-15)
+------------------
 * Minor cleanups across the tutorials. (`#71 <https://github.com/ros/geometry_tutorials/issues/71>`_)
 * Contributors: Chris Lalancette
 
