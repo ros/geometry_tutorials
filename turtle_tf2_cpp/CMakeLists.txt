@@ -43,7 +43,6 @@ ament_target_dependencies(
   rclcpp
   tf2
   tf2_ros
-  turtlesim
 )
 
 add_executable(turtle_tf2_broadcaster src/turtle_tf2_broadcaster.cpp)
@@ -72,7 +71,6 @@ ament_target_dependencies(
   geometry_msgs
   rclcpp
   tf2_ros
-  turtlesim
 )
 
 add_executable(dynamic_frame_tf2_broadcaster src/dynamic_frame_tf2_broadcaster.cpp)
@@ -81,7 +79,6 @@ ament_target_dependencies(
   geometry_msgs
   rclcpp
   tf2_ros
-  turtlesim
 )
 
 add_executable(turtle_tf2_message_filter src/turtle_tf2_message_filter.cpp)
@@ -90,7 +87,6 @@ ament_target_dependencies(
   geometry_msgs
   message_filters
   rclcpp
-  tf2
   tf2_geometry_msgs
   tf2_ros
 )
