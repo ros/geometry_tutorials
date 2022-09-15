@@ -24,11 +24,12 @@ class FixedFrameBroadcaster(Node):
 
     def __init__(self):
         super().__init__('fixed_frame_tf2_broadcaster')
-        self.br = TransformBroadcaster(self)
+        self.tf_broadcaster = TransformBroadcaster(self)
         self.timer = self.create_timer(0.1, self.broadcast_timer_callback)
 
     def broadcast_timer_callback(self):
         t = TransformStamped()
+
         t.header.stamp = self.get_clock().now().to_msg()
         t.header.frame_id = 'turtle1'
         t.child_frame_id = 'carrot1'
@@ -40,7 +41,7 @@ class FixedFrameBroadcaster(Node):
         t.transform.rotation.z = 0.0
         t.transform.rotation.w = 1.0
 
-        self.br.sendTransform(t)
+        self.tf_broadcaster.sendTransform(t)
 
 
 def main():

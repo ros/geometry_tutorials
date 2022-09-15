@@ -30,8 +30,7 @@ public:
   : Node("turtle_tf2_frame_publisher")
   {
     // Declare and acquire `turtlename` parameter
-    this->declare_parameter<std::string>("turtlename", "turtle");
-    this->get_parameter("turtlename", turtlename_);
+    turtlename_ = this->declare_parameter<std::string>("turtlename", "turtle");
 
     // Initialize the transform broadcaster
     tf_broadcaster_ =
@@ -51,12 +50,11 @@ public:
 private:
   void handle_turtle_pose(const std::shared_ptr<turtlesim::msg::Pose> msg)
   {
-    rclcpp::Time now = this->get_clock()->now();
     geometry_msgs::msg::TransformStamped t;
 
     // Read message content and assign it to
     // corresponding tf variables
-    t.header.stamp = now;
+    t.header.stamp = this->get_clock()->now();
     t.header.frame_id = "world";
     t.child_frame_id = turtlename_.c_str();
 
@@ -79,6 +77,7 @@ private:
     // Send the transformation
     tf_broadcaster_->sendTransform(t);
   }
+
   rclcpp::Subscription<turtlesim::msg::Pose>::SharedPtr subscription_;
   std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
   std::string turtlename_;

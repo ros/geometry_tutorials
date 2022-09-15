@@ -60,12 +60,11 @@ class FramePublisher(Node):
         super().__init__('turtle_tf2_frame_publisher')
 
         # Declare and acquire `turtlename` parameter
-        self.declare_parameter('turtlename', 'turtle')
-        self.turtlename = self.get_parameter(
-            'turtlename').get_parameter_value().string_value
+        self.turtlename = self.declare_parameter(
+            'turtlename', 'turtle').get_parameter_value().string_value
 
         # Initialize the transform broadcaster
-        self.br = TransformBroadcaster(self)
+        self.tf_broadcaster = TransformBroadcaster(self)
 
         # Subscribe to a turtle{1}{2}/pose topic and call handle_turtle_pose
         # callback function on each message
@@ -74,7 +73,7 @@ class FramePublisher(Node):
             f'/{self.turtlename}/pose',
             self.handle_turtle_pose,
             1)
-        self.subscription
+        self.subscription  # prevent unused variable warning
 
     def handle_turtle_pose(self, msg):
         t = TransformStamped()
@@ -101,7 +100,7 @@ class FramePublisher(Node):
         t.transform.rotation.w = q[3]
 
         # Send the transformation
-        self.br.sendTransform(t)
+        self.tf_broadcaster.sendTransform(t)
 
 
 def main():
