@@ -56,9 +56,9 @@ class PointPublisher(Node):
                 # Note that x, y and theta are defined as floats in turtlesim/srv/Spawn
                 request = Spawn.Request()
                 request.name = 'turtle3'
-                request.x = float(4)
-                request.y = float(2)
-                request.theta = float(0)
+                request.x = 4.0
+                request.y = 2.0
+                request.theta = 0.0
                 # Call request
                 self.result = self.spawner.call_async(request)
                 self.turtle_spawning_service_ready = True

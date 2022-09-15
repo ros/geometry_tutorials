@@ -40,8 +40,7 @@ public:
     // Declare and acquire `target_frame` parameter
     target_frame_ = this->declare_parameter<std::string>("target_frame", "turtle1");
 
-    typedef std::chrono::duration<int> seconds_type;
-    seconds_type buffer_timeout(1);
+    std::chrono::duration<int> buffer_timeout(1);
 
     tf2_buffer_ = std::make_shared<tf2_ros::Buffer>(this->get_clock());
     // Create the timer interface before call to waitForTransform,
