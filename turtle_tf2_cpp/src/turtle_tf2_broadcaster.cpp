@@ -69,7 +69,7 @@ public:
 
         // Send the transformation
         tf_broadcaster_->sendTransform(t);
-    };
+      };
     subscription_ = this->create_subscription<turtlesim::msg::Pose>(
       topic_name, 10,
       handle_turtle_pose);
