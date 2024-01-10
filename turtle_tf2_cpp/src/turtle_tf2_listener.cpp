@@ -53,7 +53,7 @@ public:
 
     // Call on_timer function every second
     timer_ = this->create_wall_timer(
-      1s, [this](){return this->on_timer();});
+      1s, [this]() {return this->on_timer();});
   }
 
 private:
