@@ -53,7 +53,7 @@ public:
 
     // Call on_timer function every second
     timer_ = this->create_wall_timer(
-      1s, std::bind(&FrameListener::on_timer, this));
+      1s, [this]() {return this->on_timer();});
   }
 
 private:
@@ -104,10 +104,10 @@ private:
         // Initialize request with turtle name and coordinates
         // Note that x, y and theta are defined as floats in turtlesim/srv/Spawn
         auto request = std::make_shared<turtlesim::srv::Spawn::Request>();
-        request->name = "turtle2";
         request->x = 4.0;
         request->y = 2.0;
         request->theta = 0.0;
+        request->name = "turtle2";
 
         // Call request
         using ServiceResponseFuture =
