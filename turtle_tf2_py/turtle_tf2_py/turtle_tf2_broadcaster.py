@@ -19,6 +19,7 @@ from geometry_msgs.msg import TransformStamped
 import numpy as np
 
 import rclpy
+from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
 
 from tf2_ros import TransformBroadcaster
@@ -104,11 +105,9 @@ class FramePublisher(Node):
 
 
 def main():
-    rclpy.init()
-    node = FramePublisher()
     try:
-        rclpy.spin(node)
-    except KeyboardInterrupt:
+        with rclpy.init():
+            node = FramePublisher()
+            rclpy.spin(node)
+    except (KeyboardInterrupt, ExternalShutdownException):
         pass
-
-    rclpy.shutdown()

@@ -20,6 +20,7 @@ from geometry_msgs.msg import TransformStamped
 import numpy as np
 
 import rclpy
+from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
 
 from tf2_ros.static_transform_broadcaster import StaticTransformBroadcaster
@@ -104,12 +105,10 @@ def main():
         logger.info('Your static turtle name cannot be "world"')
         sys.exit(2)
 
-    # pass parameters and initialize node
-    rclpy.init()
-    node = StaticFramePublisher(sys.argv)
     try:
-        rclpy.spin(node)
-    except KeyboardInterrupt:
+        with rclpy.init():
+            # pass parameters and initialize node
+            node = StaticFramePublisher(sys.argv)
+            rclpy.spin(node)
+    except (KeyboardInterrupt, ExternalShutdownException):
         pass
-
-    rclpy.shutdown()

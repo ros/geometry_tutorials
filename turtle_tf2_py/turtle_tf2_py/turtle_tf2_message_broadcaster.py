@@ -16,6 +16,7 @@ from geometry_msgs.msg import PointStamped
 from geometry_msgs.msg import Twist
 
 import rclpy
+from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
 
 from turtlesim_msgs.msg import Pose
@@ -87,11 +88,9 @@ class PointPublisher(Node):
 
 
 def main():
-    rclpy.init()
-    node = PointPublisher()
     try:
-        rclpy.spin(node)
-    except KeyboardInterrupt:
+        with rclpy.init():
+            node = PointPublisher()
+            rclpy.spin(node)
+    except (KeyboardInterrupt, ExternalShutdownException):
         pass
-
-    rclpy.shutdown()

@@ -15,6 +15,7 @@
 from geometry_msgs.msg import TransformStamped
 
 import rclpy
+from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
 
 from tf2_ros import TransformBroadcaster
@@ -45,11 +46,9 @@ class FixedFrameBroadcaster(Node):
 
 
 def main():
-    rclpy.init()
-    node = FixedFrameBroadcaster()
     try:
-        rclpy.spin(node)
-    except KeyboardInterrupt:
+        with rclpy.init():
+            node = FixedFrameBroadcaster()
+            rclpy.spin(node)
+    except (KeyboardInterrupt, ExternalShutdownException):
         pass
-
-    rclpy.shutdown()
