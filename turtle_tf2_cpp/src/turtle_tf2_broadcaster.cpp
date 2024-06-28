@@ -21,7 +21,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "tf2/LinearMath/Quaternion.h"
 #include "tf2_ros/transform_broadcaster.h"
-#include "turtlesim/msg/pose.hpp"
+#include "turtlesim_msgs/msg/pose.hpp"
 
 class FramePublisher : public rclcpp::Node
 {
@@ -42,7 +42,7 @@ public:
     stream << "/" << turtlename_.c_str() << "/pose";
     std::string topic_name = stream.str();
 
-    auto handle_turtle_pose = [this](const std::shared_ptr<turtlesim::msg::Pose> msg) {
+    auto handle_turtle_pose = [this](const std::shared_ptr<turtlesim_msgs::msg::Pose> msg) {
         geometry_msgs::msg::TransformStamped t;
 
         // Read message content and assign it to
@@ -70,13 +70,13 @@ public:
         // Send the transformation
         tf_broadcaster_->sendTransform(t);
       };
-    subscription_ = this->create_subscription<turtlesim::msg::Pose>(
+    subscription_ = this->create_subscription<turtlesim_msgs::msg::Pose>(
       topic_name, 10,
       handle_turtle_pose);
   }
 
 private:
-  rclcpp::Subscription<turtlesim::msg::Pose>::SharedPtr subscription_;
+  rclcpp::Subscription<turtlesim_msgs::msg::Pose>::SharedPtr subscription_;
   std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
   std::string turtlename_;
 };

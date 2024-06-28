@@ -21,7 +21,7 @@ find_package(rclcpp REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
-find_package(turtlesim REQUIRED)
+find_package(turtlesim_msgs REQUIRED)
 
 if(TARGET tf2_geometry_msgs::tf2_geometry_msgs)
   get_target_property(_include_dirs tf2_geometry_msgs::tf2_geometry_msgs INTERFACE_INCLUDE_DIRECTORIES)
@@ -52,7 +52,7 @@ ament_target_dependencies(
   rclcpp
   tf2
   tf2_ros
-  turtlesim
+  turtlesim_msgs
 )
 
 add_executable(turtle_tf2_listener src/turtle_tf2_listener.cpp)
@@ -62,7 +62,7 @@ ament_target_dependencies(
   rclcpp
   tf2
   tf2_ros
-  turtlesim
+  turtlesim_msgs
 )
 
 add_executable(fixed_frame_tf2_broadcaster src/fixed_frame_tf2_broadcaster.cpp)
