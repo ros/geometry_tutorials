@@ -37,58 +37,53 @@ find_file(TF2_CPP_HEADERS
 )
 
 add_executable(static_turtle_tf2_broadcaster src/static_turtle_tf2_broadcaster.cpp)
-ament_target_dependencies(
-  static_turtle_tf2_broadcaster
-  geometry_msgs
-  rclcpp
-  tf2
-  tf2_ros
+target_link_libraries(static_turtle_tf2_broadcaster PRIVATE
+  ${geometry_msgs_TARGET}
+  rclcpp::rclcpp
+  tf2::tf2
+  tf2_ros::tf2_ros
 )
 
 add_executable(turtle_tf2_broadcaster src/turtle_tf2_broadcaster.cpp)
-ament_target_dependencies(
-  turtle_tf2_broadcaster
-  geometry_msgs
-  rclcpp
-  tf2
-  tf2_ros
-  turtlesim
+target_link_libraries(turtle_tf2_broadcaster PRIVATE
+  ${geometry_msgs_TARGET}
+  rclcpp::rclcpp
+  tf2::tf2
+  tf2_ros::tf2_ros
+  ${turtlesim_TARGETS}
 )
 
 add_executable(turtle_tf2_listener src/turtle_tf2_listener.cpp)
-ament_target_dependencies(
-  turtle_tf2_listener
-  geometry_msgs
-  rclcpp
-  tf2
-  tf2_ros
-  turtlesim
+target_link_libraries(turtle_tf2_listener PRIVATE
+  ${geometry_msgs_TARGET}
+  rclcpp::rclcpp
+  tf2::tf2
+  tf2_ros::tf2_ros
+  ${turtlesim_TARGETS}
 )
 
 add_executable(fixed_frame_tf2_broadcaster src/fixed_frame_tf2_broadcaster.cpp)
-ament_target_dependencies(
-  fixed_frame_tf2_broadcaster
-  geometry_msgs
-  rclcpp
-  tf2_ros
+target_link_libraries(fixed_frame_tf2_broadcaster PRIVATE
+  ${geometry_msgs_TARGET}
+  rclcpp::rclcpp
+  tf2_ros::tf2_ros
 )
 
 add_executable(dynamic_frame_tf2_broadcaster src/dynamic_frame_tf2_broadcaster.cpp)
-ament_target_dependencies(
+target_link_libraries(
   dynamic_frame_tf2_broadcaster
-  geometry_msgs
-  rclcpp
-  tf2_ros
+  ${geometry_msgs_TARGETS}
+  rclcpp::rclcpp
+  tf2_ros::tf2_ros
 )
 
 add_executable(turtle_tf2_message_filter src/turtle_tf2_message_filter.cpp)
-ament_target_dependencies(
-  turtle_tf2_message_filter
-  geometry_msgs
-  message_filters
-  rclcpp
-  tf2_geometry_msgs
-  tf2_ros
+target_link_libraries(turtle_tf2_message_filter PRIVATE
+  ${geometry_msgs_TARGETS}
+  message_filters::message_filters
+  rclcpp::rclcpp
+  ${tf2_geometry_msgs_TARGETS}
+  tf2_ros::tf2_ros
 )
 
 if(EXISTS ${TF2_CPP_HEADERS})
