@@ -70,8 +70,7 @@ target_link_libraries(fixed_frame_tf2_broadcaster PRIVATE
 )
 
 add_executable(dynamic_frame_tf2_broadcaster src/dynamic_frame_tf2_broadcaster.cpp)
-target_link_libraries(
-  dynamic_frame_tf2_broadcaster
+target_link_libraries(dynamic_frame_tf2_broadcaster PRIVATE
   ${geometry_msgs_TARGETS}
   rclcpp::rclcpp
   tf2_ros::tf2_ros
