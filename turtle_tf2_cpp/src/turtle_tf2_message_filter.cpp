@@ -52,7 +52,9 @@ public:
     tf2_listener_ =
       std::make_shared<tf2_ros::TransformListener>(*tf2_buffer_);
 
-    point_sub_.subscribe(this, "/turtle3/turtle_point_stamped");
+    point_sub_.subscribe(
+      this, "/turtle3/turtle_point_stamped",
+      rclcpp::QoS(rclcpp::QoSInitialization::from_rmw(rmw_qos_profile_default)));
     tf2_filter_ = std::make_shared<tf2_ros::MessageFilter<geometry_msgs::msg::PointStamped>>(
       point_sub_, *tf2_buffer_, target_frame_, 100, this->get_node_logging_interface(),
       this->get_node_clock_interface(), buffer_timeout);
