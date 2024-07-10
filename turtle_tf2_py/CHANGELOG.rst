@@ -2,6 +2,14 @@
 Changelog for package turtle_tf2_py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.5.0 (2024-07-10)
+------------------
+* Fix a few more minor nitpicks. (`#72 <https://github.com/ros/geometry_tutorials/issues/72>`_)
+  1.  Remove dependencies from the targets that don't need them.
+  2.  Remove a totally unnecessary typedef.
+  3.  Remove unnecessary casts to float.
+* Contributors: Chris Lalancette
+
 0.3.6 (2022-09-15)
 ------------------
 * Minor cleanups across the tutorials. (`#71 <https://github.com/ros/geometry_tutorials/issues/71>`_)
