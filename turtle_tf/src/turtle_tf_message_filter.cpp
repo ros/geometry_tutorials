@@ -10,7 +10,7 @@ public:
   {
     point_sub_.subscribe(n_, "turtle_point_stamped", 10);
     tf_filter_ = new tf::MessageFilter<geometry_msgs::PointStamped>(point_sub_, tf_, target_frame_, 10);
-    tf_filter_->registerCallback( boost::bind(&PoseDrawer::msgCallback, this, _1) );
+    tf_filter_->registerCallback( [this](auto& msg){ msgCallback(msg); } );
   } ;
 
 private:

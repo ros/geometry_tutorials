@@ -14,7 +14,7 @@ public:
     tf2_filter_(point_sub_, buffer_, target_frame_, 10, 0)
   {
     point_sub_.subscribe(n_, "turtle_point_stamped", 10);
-    tf2_filter_.registerCallback( boost::bind(&PoseDrawer::msgCallback, this, _1) );
+    tf2_filter_.registerCallback( [this](auto& msg){ msgCallback(msg); } );
   }
 
   //  Callback to register with tf2_ros::MessageFilter to be called when transforms are available
