@@ -2,6 +2,13 @@
 Changelog for package turtle_tf2_py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.6.3 (2024-12-27)
+------------------
+* Switch to using a context manager for rclpy initialization. (`#85 <https://github.com/ros/geometry_tutorials/issues/85>`_)
+  This ensures that everything will be properly cleaned up
+  when we leave the context manager.
+* Contributors: Chris Lalancette
+
 0.6.2 (2024-07-19)
 ------------------
 

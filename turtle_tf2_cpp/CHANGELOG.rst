@@ -2,6 +2,11 @@
 Changelog for package turtle_tf2_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.6.3 (2024-12-27)
+------------------
+* Deprecating tf2 C Headers (`#87 <https://github.com/ros/geometry_tutorials/issues/87>`_)
+* Contributors: Lucas Wendland
+
 0.6.2 (2024-07-19)
 ------------------
 * Updated deprecated message filter headers (`#84 <https://github.com/ros/geometry_tutorials/issues/84>`_)
