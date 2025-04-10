@@ -1,7 +1,7 @@
 <?xml version="1.0"?> 
 <package>
   <name>turtle_tf2</name>
-  <version>0.2.3</version>
+  <version>0.2.4</version>
   <description>
 		turtle_tf2 demonstrates how to write a tf2 broadcaster and listener with the turtlesim. The tutle_tf2_listener commands turtle2 to follow turtle1 around as you drive turtle1 using the keyboard.
 	</description>

@@ -2,8 +2,8 @@
 Changelog for package turtle_tf2
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.4 (2025-04-10)
+------------------
 * Do away with boost::bind (`#86 <https://github.com/ros/geometry_tutorials/issues/86>`_)
 * Contributors: Michael Görner
 
