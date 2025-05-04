@@ -6,7 +6,7 @@ on:
       - ros2
 
 jobs:
-  build_and_test_source_kilted:
+  build_and_test_source_rolling:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/ros-tooling/setup-ros-docker/setup-ros-docker-ubuntu-noble-testing
@@ -18,8 +18,8 @@ jobs:
         package-name: |
           turtle_tf2_py
           turtle_tf2_cpp
-        target-ros2-distro: kilted
-        vcs-repo-file-url: https://raw.githubusercontent.com/ros2/ros2/kilted/ros2.repos
+        target-ros2-distro: rolling
+        vcs-repo-file-url: https://raw.githubusercontent.com/ros2/ros2/rolling/ros2.repos
         colcon-defaults: |
           {
             "build": {
@@ -32,7 +32,7 @@ jobs:
               "pytest-args": ["-m", "not xfail"]
             }
           }
-  build_and_test_binaries_kilted:
+  build_and_test_binaries_rolling:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/ros-tooling/setup-ros-docker/setup-ros-docker-ubuntu-noble-testing
@@ -44,7 +44,7 @@ jobs:
         package-name: |
           turtle_tf2_py
           turtle_tf2_cpp
-        target-ros2-distro: kilted
+        target-ros2-distro: rolling
         colcon-defaults: |
           {
             "build": {
