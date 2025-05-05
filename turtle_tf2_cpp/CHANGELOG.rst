@@ -2,6 +2,9 @@
 Changelog for package turtle_tf2_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.7.0 (2025-05-05)
+------------------
+
 0.6.3 (2024-12-27)
 ------------------
 * Deprecating tf2 C Headers (`#87 <https://github.com/ros/geometry_tutorials/issues/87>`_)
