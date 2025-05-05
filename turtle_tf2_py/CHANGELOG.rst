@@ -2,6 +2,11 @@
 Changelog for package turtle_tf2_py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.6.4 (2025-05-05)
+------------------
+* Fix incorrect srv import (backport `#88 <https://github.com/ros/geometry_tutorials/issues/88>`_) (`#90 <https://github.com/ros/geometry_tutorials/issues/90>`_)
+* Contributors: mergify[bot]
+
 0.6.3 (2024-12-27)
 ------------------
 * Switch to using a context manager for rclpy initialization. (`#85 <https://github.com/ros/geometry_tutorials/issues/85>`_)
