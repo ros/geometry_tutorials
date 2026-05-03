@@ -17,7 +17,7 @@
 #include "geometry_msgs/msg/transform_stamped.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "tf2/LinearMath/Quaternion.hpp"
-#include "tf2_ros/static_transform_broadcaster.h"
+#include "tf2_ros/static_transform_broadcaster.hpp"
 
 class StaticFramePublisher : public rclcpp::Node
 {
