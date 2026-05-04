@@ -19,10 +19,10 @@
 #include "geometry_msgs/msg/point_stamped.hpp"
 #include "message_filters/subscriber.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "tf2_ros/buffer.h"
-#include "tf2_ros/create_timer_ros.h"
-#include "tf2_ros/message_filter.h"
-#include "tf2_ros/transform_listener.h"
+#include "tf2_ros/buffer.hpp"
+#include "tf2_ros/create_timer_ros.hpp"
+#include "tf2_ros/message_filter.hpp"
+#include "tf2_ros/transform_listener.hpp"
 #ifdef TF2_CPP_HEADERS
   #include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
 #else
