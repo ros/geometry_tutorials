@@ -45,17 +45,14 @@ public:
     tf2_buffer_ = std::make_shared<tf2_ros::Buffer>(this->get_clock());
     // Create the timer interface before call to waitForTransform,
     // to avoid a tf2_ros::CreateTimerInterfaceException exception
-    auto timer_interface = std::make_shared<tf2_ros::CreateTimerROS>(
-      this->get_node_base_interface(),
-      this->get_node_timers_interface());
+    auto timer_interface = std::make_shared<tf2_ros::CreateTimerROS>(*this);
     tf2_buffer_->setCreateTimerInterface(timer_interface);
     tf2_listener_ =
       std::make_shared<tf2_ros::TransformListener>(*tf2_buffer_);
 
     point_sub_.subscribe(this, "/turtle3/turtle_point_stamped", rclcpp::QoS(10));
     tf2_filter_ = std::make_shared<tf2_ros::MessageFilter<geometry_msgs::msg::PointStamped>>(
-      point_sub_, *tf2_buffer_, target_frame_, 100, this->get_node_logging_interface(),
-      this->get_node_clock_interface(), buffer_timeout);
+      point_sub_, *tf2_buffer_, target_frame_, 100, *this, buffer_timeout);
     // Register a callback with tf2_ros::MessageFilter to be called when transforms are available
     tf2_filter_->registerCallback(&PoseDrawer::msgCallback, this);
   }
