@@ -25,7 +25,7 @@ public:
   explicit StaticFramePublisher(char * transformation[])
   : Node("static_turtle_tf2_broadcaster")
   {
-    tf_static_broadcaster_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
+    tf_static_broadcaster_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(*this);
 
     // Publish static transforms once at startup
     this->make_transforms(transformation);
