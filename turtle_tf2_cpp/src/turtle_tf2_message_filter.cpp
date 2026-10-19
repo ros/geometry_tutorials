@@ -19,6 +19,7 @@
 #include "geometry_msgs/msg/point_stamped.hpp"
 #include "message_filters/subscriber.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "tf2/exceptions.hpp"
 #include "tf2_ros/buffer.hpp"
 #include "tf2_ros/create_timer_ros.hpp"
 #include "tf2_ros/message_filter.hpp"
