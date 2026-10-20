@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include <chrono>
+#include <cmath>
 #include <functional>
 #include <memory>
 
@@ -30,7 +31,7 @@ public:
   DynamicFrameBroadcaster()
   : Node("dynamic_frame_tf2_broadcaster")
   {
-    tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
+    tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(*this);
     timer_ = this->create_wall_timer(
       100ms, std::bind(&DynamicFrameBroadcaster::broadcast_timer_callback, this));
   }

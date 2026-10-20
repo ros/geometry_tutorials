@@ -29,7 +29,11 @@ setup(
         'follow turtle1 around as you drive turtle1 using the keyboard.'
     ),
     license='Apache License, Version 2.0',
-    tests_require=['pytest'],
+    extras_require={
+        'test': [
+            'pytest',
+        ],
+    },
     entry_points={
         'console_scripts': [
             'static_turtle_tf2_broadcaster = turtle_tf2_py.static_turtle_tf2_broadcaster:main',

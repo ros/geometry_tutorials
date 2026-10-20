@@ -9,7 +9,7 @@ jobs:
   build_and_test_source_rolling:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/ros-tooling/setup-ros-docker/setup-ros-docker-ubuntu-noble-testing
+      image: ghcr.io/ros-tooling/setup-ros-docker/setup-ros-docker-ubuntu-resolute-testing
     steps:
     - name: Build and run tests
       id: action-ros-ci
@@ -35,7 +35,7 @@ jobs:
   build_and_test_binaries_rolling:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/ros-tooling/setup-ros-docker/setup-ros-docker-ubuntu-noble-testing
+      image: ghcr.io/ros-tooling/setup-ros-docker/setup-ros-docker-ubuntu-resolute-testing
     steps:
     - name: Build and run tests
       id: action-ros-ci
