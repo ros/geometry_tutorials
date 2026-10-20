@@ -81,6 +81,7 @@ target_link_libraries(turtle_tf2_message_filter PRIVATE
   ${geometry_msgs_TARGETS}
   message_filters::message_filters
   rclcpp::rclcpp
+  tf2::tf2
   ${tf2_geometry_msgs_TARGETS}
   tf2_ros::tf2_ros
 )

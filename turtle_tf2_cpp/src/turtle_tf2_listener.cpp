@@ -13,6 +13,8 @@
 // limitations under the License.
 
 #include <chrono>
+#include <cmath>
+#include <cstring>
 #include <functional>
 #include <memory>
 #include <string>
@@ -21,6 +23,7 @@
 #include "geometry_msgs/msg/twist.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "tf2/exceptions.hpp"
+#include "tf2/time.hpp"
 #include "tf2_ros/transform_listener.hpp"
 #include "tf2_ros/buffer.hpp"
 #include "turtlesim_msgs/srv/spawn.hpp"
