@@ -1,20 +1,12 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.20)
 project(turtle_tf2_cpp)
-
-# Default to C11
-if(NOT CMAKE_C_STANDARD)
-  set(CMAKE_C_STANDARD 11)
-endif()
-# Default to C++14
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
-endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_ros_core REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(message_filters REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -38,7 +30,8 @@ find_file(TF2_CPP_HEADERS
 
 add_executable(static_turtle_tf2_broadcaster src/static_turtle_tf2_broadcaster.cpp)
 target_link_libraries(static_turtle_tf2_broadcaster PRIVATE
-  ${geometry_msgs_TARGET}
+  ament_cmake_ros_core::ament_ros_defaults
+  ${geometry_msgs_TARGETS}
   rclcpp::rclcpp
   tf2::tf2
   tf2_ros::tf2_ros
@@ -46,7 +39,8 @@ target_link_libraries(static_turtle_tf2_broadcaster PRIVATE
 
 add_executable(turtle_tf2_broadcaster src/turtle_tf2_broadcaster.cpp)
 target_link_libraries(turtle_tf2_broadcaster PRIVATE
-  ${geometry_msgs_TARGET}
+  ament_cmake_ros_core::ament_ros_defaults
+  ${geometry_msgs_TARGETS}
   rclcpp::rclcpp
   tf2::tf2
   tf2_ros::tf2_ros
@@ -55,7 +49,8 @@ target_link_libraries(turtle_tf2_broadcaster PRIVATE
 
 add_executable(turtle_tf2_listener src/turtle_tf2_listener.cpp)
 target_link_libraries(turtle_tf2_listener PRIVATE
-  ${geometry_msgs_TARGET}
+  ament_cmake_ros_core::ament_ros_defaults
+  ${geometry_msgs_TARGETS}
   rclcpp::rclcpp
   tf2::tf2
   tf2_ros::tf2_ros
@@ -64,13 +59,15 @@ target_link_libraries(turtle_tf2_listener PRIVATE
 
 add_executable(fixed_frame_tf2_broadcaster src/fixed_frame_tf2_broadcaster.cpp)
 target_link_libraries(fixed_frame_tf2_broadcaster PRIVATE
-  ${geometry_msgs_TARGET}
+  ament_cmake_ros_core::ament_ros_defaults
+  ${geometry_msgs_TARGETS}
   rclcpp::rclcpp
   tf2_ros::tf2_ros
 )
 
 add_executable(dynamic_frame_tf2_broadcaster src/dynamic_frame_tf2_broadcaster.cpp)
 target_link_libraries(dynamic_frame_tf2_broadcaster PRIVATE
+  ament_cmake_ros_core::ament_ros_defaults
   ${geometry_msgs_TARGETS}
   rclcpp::rclcpp
   tf2_ros::tf2_ros
@@ -78,6 +75,7 @@ target_link_libraries(dynamic_frame_tf2_broadcaster PRIVATE
 
 add_executable(turtle_tf2_message_filter src/turtle_tf2_message_filter.cpp)
 target_link_libraries(turtle_tf2_message_filter PRIVATE
+  ament_cmake_ros_core::ament_ros_defaults
   ${geometry_msgs_TARGETS}
   message_filters::message_filters
   rclcpp::rclcpp
