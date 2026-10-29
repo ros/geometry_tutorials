@@ -2,6 +2,12 @@
 Changelog for package turtle_tf2_py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.7.1 (2026-10-29)
+------------------
+* Merge pull request `#97 <https://github.com/ros/geometry_tutorials//issues/97>`_ from ros/ahcorde/rolling/fix-ci-resolute
+* Use extras_require for turtle_tf2_py test dependencies
+* Contributors: Alejandro Hernandez Cordero, Alejandro Hernández Cordero
+
 0.7.0 (2025-05-05)
 ------------------
 * Fix incorrect srv import (`#88 <https://github.com/ros/geometry_tutorials/issues/88>`_)
