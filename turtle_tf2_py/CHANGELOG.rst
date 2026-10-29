@@ -2,6 +2,11 @@
 Changelog for package turtle_tf2_py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.7.2 (2026-10-30)
+------------------
+* Backports  (`#99 <https://github.com/ros/geometry_tutorials//issues/99>`_)
+* Contributors: Alejandro Hernández Cordero
+
 0.7.0 (2025-05-05)
 ------------------
 * Fix incorrect srv import (`#88 <https://github.com/ros/geometry_tutorials/issues/88>`_)

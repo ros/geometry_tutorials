@@ -2,6 +2,12 @@
 Changelog for package turtle_tf2_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.7.2 (2026-10-30)
+------------------
+* Backports  (`#99 <https://github.com/ros/geometry_tutorials//issues/99>`_)
+* Updated deprecated .h headers from tf2_ros (`#93 <https://github.com/ros/geometry_tutorials//issues/93>`_) (`#95 <https://github.com/ros/geometry_tutorials//issues/95>`_)
+* Contributors: Alejandro Hernández Cordero, mergify[bot]
+
 0.7.0 (2025-05-05)
 ------------------
 
